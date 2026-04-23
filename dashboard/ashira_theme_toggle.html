@@ -1,0 +1,168 @@
+<button id="ashira-theme-toggle" aria-label="Cambiar modo de color" title="Cambiar modo de color">
+  <span class="toggle-icon-dark">☀️</span>
+  <span class="toggle-icon-light">🌙</span>
+</button>
+
+<script>
+(function () {
+  var DARK = {
+    paper:          'rgba(0,0,0,0)', // Transparente
+    plot:           '#161b22',
+    font:           '#c9d1d9',
+    title:          '#ffffff',
+    grid:           '#21262d',
+    zero:           '#21262d',
+    hover_bg:       '#1a1a2e',
+    hover_fg:       '#e6edf3',
+    hover_border:   '#30363d',
+    legend:         '#c9d1d9',
+    tick:           '#c9d1d9',
+    geo_bg:         'rgba(0,0,0,0)',
+    annot_bg:       'rgba(13,17,23,0.88)',
+    annot_border:   'rgba(255,255,255,0.12)'
+  };
+  var LIGHT = {
+    paper:          'rgba(0,0,0,0)', // Transparente
+    plot:           '#ffffff',
+    font:           '#3d5068',
+    title:          '#111318',
+    grid:           '#dce6f0',
+    zero:           '#c8d5e8',
+    hover_bg:       '#ffffff',
+    hover_fg:       '#111318',
+    hover_border:   '#c8d5e8',
+    legend:         '#1e2a3a',
+    tick:           '#3d5068',
+    geo_bg:         'rgba(0,0,0,0)',
+    annot_bg:       'rgba(255,255,255,0.95)',
+    annot_border:   'rgba(0,0,0,0.15)'
+  };
+
+  function buildUpdate(p) {
+    var u = {
+      'paper_bgcolor':            p.paper,
+      'plot_bgcolor':             p.plot,
+      'font.color':               p.font,
+      'title.font.color':         p.title,
+      'legend.font.color':        p.legend,
+      'legend.title.font.color':  p.title,
+      'hoverlabel.bgcolor':       p.hover_bg,
+      'hoverlabel.bordercolor':   p.hover_border,
+      'hoverlabel.font.color':    p.hover_fg
+    };
+
+    ['', '2', '3', '4', '5', '6'].forEach(function(n) {
+      ['xaxis', 'yaxis'].forEach(function(ax) {
+        var k = ax + n;
+        u[k + '.gridcolor']        = p.grid;
+        u[k + '.zerolinecolor']    = p.zero;
+        u[k + '.tickfont.color']   = p.tick;
+        u[k + '.title.font.color'] = p.tick;
+      });
+    });
+
+    ['geo', 'geo2', 'geo3'].forEach(function(g) {
+      u[g + '.bgcolor'] = p.geo_bg;
+      u[g + '.lakecolor'] = p.geo_bg;
+      u[g + '.landcolor'] = p.geo_bg;
+    });
+
+    ['coloraxis', 'coloraxis2', 'coloraxis3'].forEach(function(ca) {
+      u[ca + '.colorbar.tickfont.color']    = p.tick;
+      u[ca + '.colorbar.title.font.color']  = p.tick;
+      u[ca + '.colorbar.tickcolor']         = p.tick;
+    });
+
+    return u;
+  }
+
+  function recolorAnnotations(el, p) {
+    try {
+      var anns = el.layout && el.layout.annotations;
+      if (!anns || !anns.length) return;
+      var updated = anns.map(function(a) {
+        // Evitamos sobreescribir las anotaciones que tienen colores fijos (ej. el bloque de COVID)
+        if (a.bgcolor && (a.bgcolor.includes('#f5a623') || a.bgcolor.includes('166,35'))) {
+          return a;
+        }
+        return Object.assign({}, a, {
+          font: Object.assign({}, a.font || {}, { color: p.font }),
+          bgcolor: a.bgcolor ? p.annot_bg : a.bgcolor,
+          bordercolor: a.bordercolor ? p.annot_border : a.bordercolor
+        });
+      });
+      Plotly.relayout(el, { annotations: updated });
+    } catch(e) {}
+  }
+
+  function recolorPlotly(isLight) {
+    if (typeof Plotly === 'undefined') return;
+    var p = isLight ? LIGHT : DARK;
+    var update = buildUpdate(p);
+    
+    // Nueva instrucción: forzar el color de hover en TODOS los datos (traces)
+    var traceUpdate = {
+      'hoverlabel.bgcolor': p.hover_bg,
+      'hoverlabel.bordercolor': p.hover_border,
+      'hoverlabel.font.color': p.font
+    };
+
+    document.querySelectorAll('.js-plotly-plot').forEach(function(el) {
+      try { 
+        Plotly.relayout(el, update); 
+        Plotly.restyle(el, traceUpdate); // <--- Aquí inyectamos el cambio de tooltip
+      } catch(e) {}
+      recolorAnnotations(el, p);
+    });
+  }
+
+  function applyTheme(isLight, save) {
+    if (isLight) {
+      document.documentElement.classList.add('light-mode');
+    } else {
+      document.documentElement.classList.remove('light-mode');
+    }
+    recolorPlotly(isLight);
+    if (save) {
+      try { localStorage.setItem('ashira-theme', isLight ? 'light' : 'dark'); } catch(e) {}
+    }
+  }
+
+  function toggleTheme() {
+    applyTheme(!document.documentElement.classList.contains('light-mode'), true);
+  }
+
+  function init() {
+    var saved = null;
+    try { saved = localStorage.getItem('ashira-theme'); } catch(e) {}
+    var preferLight = saved
+      ? (saved === 'light')
+      : !!(window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches);
+
+    if (preferLight) document.documentElement.classList.add('light-mode');
+
+    var btn = document.getElementById('ashira-theme-toggle');
+    if (btn) btn.addEventListener('click', toggleTheme);
+
+    if (preferLight) {
+      var tries = 0;
+      var iv = setInterval(function() {
+        tries++;
+        var plots = document.querySelectorAll('.js-plotly-plot');
+        if (typeof Plotly !== 'undefined' && plots.length > 0) {
+          recolorPlotly(true);
+        }
+        if (tries >= 60) clearInterval(iv);
+      }, 500);
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+
+  window.ashiraRecolorPlotly = recolorPlotly;
+})();
+</script>

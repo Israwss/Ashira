@@ -3,6 +3,7 @@ title: "ASHIRA"
 lang: es
 format:
   html:
+    include-after-body: ashira_theme_toggle.html
     theme: darkly
     toc: true
     toc-title: "El recorrido"
@@ -25,7 +26,7 @@ execute:
   echo: false
   warning: false
   message: false
-jupyter: python313
+jupyter: python3
 ---
 
 ```{=html}
@@ -63,11 +64,17 @@ jupyter: python313
 if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
 window.addEventListener('load', () => { window.scrollTo(0, 0); });
 
-// Plotly resize cuando se cambia de tab (los charts en tabs ocultos se renderizan con ancho incorrecto)
+// Plotly resize + recolor cuando se cambia de tab
 document.addEventListener('DOMContentLoaded', function() {
   document.querySelectorAll('[data-bs-toggle="tab"], [role="tab"]').forEach(function(tab) {
     tab.addEventListener('shown.bs.tab', function() {
       window.dispatchEvent(new Event('resize'));
+      // Re-aplicar colores del tema activo al tab recién mostrado
+      setTimeout(function() {
+        if (typeof window.ashiraRecolorPlotly === 'function') {
+          window.ashiraRecolorPlotly(document.documentElement.classList.contains('light-mode'));
+        }
+      }, 80);
     });
   });
 
@@ -154,13 +161,13 @@ REGION_COLORS = {"Norte": TEAL, "Centro": GOLD, "Sur": ACCENT, "CDMX": PURPLE}
 # ── Plotly template ───────────────────────────────
 ashira_tpl = go.layout.Template()
 ashira_tpl.layout = go.Layout(
-    paper_bgcolor=BG, plot_bgcolor=CARD,
-    font=dict(color="#c9d1d9", family="Inter, -apple-system, sans-serif", size=13),
-    title=dict(font=dict(family="Fraunces, Georgia, serif", color="white", size=20), x=0.5, xanchor="center"),
+    paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor=CARD,
+    font=dict(color="#c9d1d9", family="Inter, -apple-system, sans-serif", size=14),
+    title=dict(font=dict(family="Fraunces, Georgia, serif", color="white", size=22), x=0.5, xanchor="center"),
     xaxis=dict(gridcolor="#21262d", zerolinecolor="#21262d", title_font_color="white"),
     yaxis=dict(gridcolor="#21262d", zerolinecolor="#21262d", title_font_color="white"),
     colorway=[ACCENT, GOLD, TEAL, PURPLE, GREEN],
-    hoverlabel=dict(bgcolor="#1a1a2e", font_color="white", bordercolor="#30363d", font_size=13),
+    hoverlabel=dict(bgcolor="#1a1a2e", font_color="white", bordercolor="#30363d", font_size=14),
     legend=dict(font_color="#c9d1d9", bgcolor="rgba(0,0,0,0)", borderwidth=0),
     margin=dict(l=40, r=40, t=60, b=40),
 )
@@ -394,8 +401,8 @@ brecha_pts = chiapas_pob - bc_pob
 
 ## El mapa de la pobreza
 
-<div style="background:#0d1117; padding:36px 44px; border-radius:14px; border:1px solid #21262d; margin:24px 0 16px 0;">
-<p style="color:#c9d1d9; font-size:1.1em; line-height:1.7; margin:0;">Cada estado coloreado por su porcentaje de pobreza multidimensional en 2024. El patrón es inmediato: <strong style="color:#2ecc71;">el norte es verde</strong>, <strong style="color:#e94560;">el sur es rojo.</strong> No hay excepciones.</p>
+<div class="ashira-insight accent-red">
+<p style="font-size:1.1em; line-height:1.7; margin:0;">Cada estado coloreado por su porcentaje de pobreza multidimensional en 2024. El patrón es inmediato: <strong style="color:#2ecc71;">el norte es verde</strong>, <strong style="color:#e94560;">el sur es rojo.</strong> No hay excepciones.</p>
 </div>
 
 ```{python}
@@ -430,7 +437,7 @@ fig.update_traces(
 )
 fig.update_geos(
     visible=False,
-    bgcolor=BG, projection_type="mercator",
+    bgcolor="rgba(0,0,0,0)", projection_type="mercator",
     showframe=False, showcoastlines=False,
     lataxis_range=[13.5, 33.5],
     lonaxis_range=[-119.0, -85.5],
@@ -449,13 +456,13 @@ fig.update_layout(
         text="Porcentaje de pobreza multidimensional por estado · México 2024",
         font_size=16,
     ),
-    geo=dict(bgcolor=BG, lakecolor=BG, landcolor=BG),
+    geo=dict(bgcolor="rgba(0,0,0,0)", lakecolor="rgba(0,0,0,0)", landcolor="rgba(0,0,0,0)"),
 )
 fig.show()
 ```
 
-<div style="background:linear-gradient(135deg,#1a1a2e,#16213e); padding:28px 36px; border-radius:14px; border-left:7px solid #38bdf8; margin:32px 0 16px 0;">
-<p style="color:#c9d1d9; font-size:1.05em; line-height:1.75; margin:0;">El mapa de pobreza muestra dónde están las carencias. El mapa de ingreso muestra cuánto cambió el dinero disponible. <strong style="color:#38bdf8;">Misma escala de color, ocho años de distancia.</strong> El patrón Norte–Sur se mantuvo: los estados que ya ganaban más en 2016 son los que más crecieron en términos absolutos.</p>
+<div class="ashira-insight accent-blue" style="padding:28px 36px; margin:32px 0 16px 0;">
+<p style="font-size:1.05em; line-height:1.75; margin:0;">El mapa de pobreza muestra dónde están las carencias. El mapa de ingreso muestra cuánto cambió el dinero disponible. <strong style="color:#38bdf8;">Misma escala de color, ocho años de distancia.</strong> El patrón Norte–Sur se mantuvo: los estados que ya ganaban más en 2016 son los que más crecieron en términos absolutos.</p>
 </div>
 
 ```{python}
@@ -473,7 +480,7 @@ vmin_2024 = e24_map["ing_pc_mediana"].min() * 0.92
 vmax_2024 = e24_map["ing_pc_mediana"].max() * 1.05
 
 geo_cfg = dict(
-    visible=False, bgcolor=BG,
+    visible=False, bgcolor="rgba(0,0,0,0)",
     projection_type="mercator",
     showframe=False, showcoastlines=False,
     lataxis_range=[13.5, 33.5],
@@ -560,8 +567,8 @@ fig.update_layout(
             outlinewidth=0,
         ),
     ),
-    geo=dict(**geo_cfg,  lakecolor=BG, landcolor=BG),
-    geo2=dict(**geo_cfg, lakecolor=BG, landcolor=BG),
+    geo=dict(**geo_cfg, lakecolor="rgba(0,0,0,0)", landcolor="rgba(0,0,0,0)"),
+    geo2=dict(**geo_cfg, lakecolor="rgba(0,0,0,0)", landcolor="rgba(0,0,0,0)"),
     title=dict(
         text="Ingreso mediano por persona en moneda nacional",
         y=0.98, yanchor="top",
@@ -574,8 +581,8 @@ fig.show()
 
 ## Los dos Méxicos
 
-<div style="background:linear-gradient(135deg,#1a1a2e,#16213e); padding:36px 44px; border-radius:14px; border-left:7px solid #e94560; margin:24px 0 16px 0;">
-<p style="color:#c9d1d9; font-size:1.15em; line-height:1.75; margin:0;">Chiapas y Baja California comparten bandera y constitución. No comparten el mismo México. En <strong style="color:#e94560;">Chiapas</strong>, 66 de cada 100 personas viven en pobreza. En <strong style="color:#0f9b8e;">Baja California</strong>, apenas 10. Esta diferencia no es mala suerte. Es estructura.</p>
+<div class="ashira-insight accent-red">
+<p style="font-size:1.15em; line-height:1.75; margin:0;">Chiapas y Baja California comparten bandera y constitución. No comparten el mismo México. En <strong style="color:#e94560;">Chiapas</strong>, 66 de cada 100 personas viven en pobreza. En <strong style="color:#0f9b8e;">Baja California</strong>, apenas 10. Esta diferencia no es mala suerte. Es estructura.</p>
 </div>
 
 ```{python}
@@ -593,7 +600,7 @@ fig = px.bar(
     labels={"pct_pobreza_2024":"Pobreza (%)", "estado":"", "region":"Región"},
 )
 fig.update_traces(
-    textposition="outside", textfont_size=11, marker_line_width=0,
+    textposition="outside", textfont_size=12, marker_line_width=0,
     hovertemplate=(
         "<b>%{y}</b><br>"
         "Región: <b>%{customdata[0]}</b><br>"
@@ -605,14 +612,14 @@ fig.add_vline(x=nac, line_dash="dash", line_color="#f5a623", opacity=0.85,
               line_width=2,
               annotation_text=f" Promedio nacional: {nac:.1f}% ",
               annotation_position="top",
-              annotation_font_color="#0d1117", annotation_font_size=12,
+              annotation_font_color="#0d1117", annotation_font_size=13,
               annotation_bgcolor="#f5a623", annotation_bordercolor="#f5a623",
               annotation_borderwidth=1, annotation_borderpad=4)
 # Anotaciones de extremos
 _chiapas_v = df_plot[df_plot["estado"]=="Chiapas"]["pct_pobreza_2024"].values[0]
 _bc_v = df_plot[df_plot["estado"]=="Baja California"]["pct_pobreza_2024"].values[0]
 fig.add_annotation(
-    x=_chiapas_v + 4.5, y="Chiapas",
+    x=_chiapas_v + 6, y="Chiapas",
     text=f"<b>+{_chiapas_v-nac:.0f} puntos</b> sobre el promedio",
     showarrow=False, font=dict(color=ACCENT, size=10), xanchor="left",
 )
@@ -659,14 +666,14 @@ fig.add_annotation(
     bordercolor="rgba(255,255,255,0.12)",
     borderwidth=1,
     borderpad=24,
-    font=dict(size=13, color="#c9d1d9", family="Arial"),
+    font=dict(size=15, color="#c9d1d9", family="Inter, -apple-system, sans-serif"),
     align="left",
 )
 fig.update_layout(
     height=860,
     margin=dict(l=150, r=80, t=110, b=50),
     xaxis=dict(title="Porcentaje de la población en pobreza multidimensional", ticksuffix="%", range=[0,92]),
-    yaxis=dict(categoryorder="total ascending", tickfont=dict(size=12), title=""),
+    yaxis=dict(categoryorder="total ascending", tickfont=dict(size=13), title=""),
     title=dict(
         text="Pobreza multidimensional por estado · 2024",
         y=0.98, yanchor="top",
@@ -693,8 +700,8 @@ Hablar de un "promedio nacional" en México es un error estadístico que oculta 
 
 ## La brecha que no cierra
 
-<div style="background:linear-gradient(135deg,#1a1a2e,#16213e); padding:36px 44px; border-radius:14px; border-left:7px solid #f5a623; margin:24px 0 16px 0;">
-<p style="color:#c9d1d9; font-size:1.15em; line-height:1.75; margin:0;">En ocho años, el ingreso en México subió para todos, pero de forma profundamente desigual. El Sur no está estancado, pero su ritmo no alcanza para seguirle el paso al Norte. La brecha no se cierra: por cada paso que da el Sur, el Norte da dos. <strong style="color:#f5a623;">El código postal sigue pesando más que el esfuerzo.</strong></p>
+<div class="ashira-insight accent-gold">
+<p style="font-size:1.15em; line-height:1.75; margin:0;">En ocho años, el ingreso en México subió para todos, pero de forma profundamente desigual. El Sur no está estancado, pero su ritmo no alcanza para seguirle el paso al Norte. La brecha no se cierra: por cada paso que da el Sur, el Norte da dos. <strong style="color:#f5a623;">El código postal sigue pesando más que el esfuerzo.</strong></p>
 </div>
 
 ```{python}
@@ -771,7 +778,7 @@ fig.add_trace(go.Scatter(
 # Línea de referencia en 1.0 (igualdad)
 fig.add_hline(y=1.0, line_dash="dash", line_color="rgba(255,255,255,0.2)",
               annotation_text="Igualdad (1.0x)",
-              annotation_font_color="#8b949e", annotation_font_size=10,
+              annotation_font_color="#8b949e", annotation_font_size=11,
               row=1, col=2)
 
 fig.update_xaxes(dtick=2, title_text="Año", title_standoff=12, row=1, col=1)
@@ -821,8 +828,8 @@ Entre 2020 y 2022, la pobreza en el Sur bajó, pero la estructura productiva no 
 
 ## Las raíces de la pobreza
 
-<div style="background:linear-gradient(135deg,#1a1a2e,#16213e); padding:36px 44px; border-radius:14px; border-left:7px solid #7b68ee; margin:24px 0 16px 0;">
-<p style="color:#c9d1d9; font-size:1.15em; line-height:1.75; margin:0;">La pobreza en México no es aleatoria. Tiene raíces en la historia, en la etnicidad, en el mercado de trabajo. <strong style="color:#7b68ee;">No es coincidencia. Es estructura.</strong></p>
+<div class="ashira-insight accent-purple">
+<p style="font-size:1.15em; line-height:1.75; margin:0;">La pobreza en México no es aleatoria. Tiene raíces en la historia, en la etnicidad, en el mercado de trabajo. <strong style="color:#7b68ee;">No es coincidencia. Es estructura.</strong></p>
 </div>
 
 ::: {.panel-tabset}
@@ -854,7 +861,7 @@ fig = px.scatter(
 )
 fig.update_traces(marker=dict(size=14, line=dict(width=1.5, color="white")),
                   textposition="top center",
-                  textfont=dict(size=10, color="#e6edf3", family="Inter,sans-serif"),
+                  textfont=dict(size=11, color="#e6edf3", family="Inter,sans-serif"),
                   hovertemplate=(
                       "<b style='font-size:15px'>%{hovertext}</b><br>"
                       "<span style='color:#8b949e'>Región: </span><b>%{customdata[0]}</b><br>"
@@ -949,7 +956,7 @@ fig = px.scatter(
 )
 fig.update_traces(marker=dict(size=14, line=dict(width=1.5, color="white")),
                   textposition="top center",
-                  textfont=dict(size=10, color="#e6edf3", family="Inter,sans-serif"),
+                  textfont=dict(size=11, color="#e6edf3", family="Inter,sans-serif"),
                   hovertemplate=(
                       "<b style='font-size:15px'>%{hovertext}</b><br>"
                       "<span style='color:#8b949e'>Región: </span><b>%{customdata[0]}</b><br>"
@@ -1029,7 +1036,7 @@ fig = px.bar(
     labels={"pct_inseg_alim":"Inseguridad alimentaria (%)", "estado":"", "region":"Región"},
 )
 fig.update_traces(
-    textposition="outside", textfont_size=10, marker_line_width=0,
+    textposition="outside", textfont_size=11, marker_line_width=0,
     cliponaxis=False,
     hovertemplate="<b>%{y}</b><br>Región: <b>%{customdata[0]}</b><br>Inseguridad alimentaria: <b>%{customdata[1]:.1f}%</b><extra></extra>",
 )
@@ -1037,7 +1044,7 @@ fig.add_vline(x=promedio_nacional_alim, line_dash="dash", line_color="#f5a623", 
               line_width=2,
               annotation_text=f" Promedio nacional · {promedio_nacional_alim:.1f}% ",
               annotation_position="top",
-              annotation_font_color="#0d1117", annotation_font_size=12,
+              annotation_font_color="#0d1117", annotation_font_size=13,
               annotation_bgcolor="#f5a623", annotation_bordercolor="#f5a623",
               annotation_borderwidth=1, annotation_borderpad=4)
 fig.update_layout(
@@ -1045,7 +1052,7 @@ fig.update_layout(
     margin=dict(l=155, r=55, t=130, b=60),
     xaxis=dict(title=dict(text="Porcentaje de población con inseguridad alimentaria", standoff=12), ticksuffix="%",
                range=[0, df_inseg_alim["pct_inseg_alim"].max() * 1.32]),
-    yaxis=dict(categoryorder="total ascending", tickfont=dict(size=12)),
+    yaxis=dict(categoryorder="total ascending", tickfont=dict(size=13)),
     title=dict(
         text="El hambre también tiene código postal",
         y=0.97, yanchor="top",
@@ -1076,8 +1083,8 @@ Los gráficos revelan una verdad incómoda: la pobreza en México está ligada a
 
 ## De qué vive el sur
 
-<div style="background:linear-gradient(135deg,#1a1a2e,#16213e); padding:36px 44px; border-radius:14px; border-left:7px solid #2ecc71; margin:24px 0 16px 0;">
-<p style="color:#c9d1d9; font-size:1.15em; line-height:1.75; margin:0;">Cuando el ingreso laboral no alcanza, el sur sobrevive de dos maneras: programas gubernamentales y remesas. La mejora es real, pero frágil. Descansa en transferencias, no en trabajo formal.</p>
+<div class="ashira-insight accent-green">
+<p style="font-size:1.15em; line-height:1.75; margin:0;">Cuando el ingreso laboral no alcanza, el sur sobrevive de dos maneras: programas gubernamentales y remesas. La mejora es real, pero frágil. Descansa en transferencias, no en trabajo formal.</p>
 </div>
 
 ::: {.panel-tabset}
@@ -1133,7 +1140,7 @@ fig = px.bar(
     labels={"pct_remesas":"Remesas (% del ingreso)", "estado":"", "region":"Región"},
 )
 fig.update_traces(
-    textposition="outside", textfont_size=10, marker_line_width=0,
+    textposition="outside", textfont_size=11, marker_line_width=0,
     cliponaxis=False,
     hovertemplate="<b>%{y}</b><br>Región: <b>%{customdata[0]}</b><br>Remesas: <b>%{customdata[1]:.1f}%</b> del ingreso<extra></extra>",
 )
@@ -1142,7 +1149,7 @@ fig.update_layout(
     margin=dict(l=155, r=55, t=130, b=60),
     xaxis=dict(title=dict(text="Porcentaje del ingreso corriente que proviene de remesas", standoff=12), ticksuffix="%",
                range=[0, df_remesas_2024["pct_remesas"].max() * 1.17]),
-    yaxis=dict(categoryorder="total ascending", tickfont=dict(size=12)),
+    yaxis=dict(categoryorder="total ascending", tickfont=dict(size=13)),
     title=dict(
         text="¿Quién vive de los que se fueron?",
         y=0.97, yanchor="top",
@@ -1206,8 +1213,8 @@ fig.show()
 
 ## La exportación de talento por necesidad: la paradoja del migrante
 
-<div style="background:linear-gradient(135deg,#1a1a2e,#16213e); padding:36px 44px; border-radius:14px; border-left:7px solid #e94560; margin:24px 0 16px 0;">
-<p style="color:#c9d1d9; font-size:1.15em; line-height:1.75; margin:0;">El Sur está perdiendo lo más valioso que tiene: su gente. Los datos muestran una realidad cruda: a mayor pobreza, más emigración. Aunque el dinero que mandan los que se van <strong>(remesas)</strong> infla los números de ingreso y hace parecer que el estado mejora, la realidad es otra. <strong style="color:#e94560;">No es progreso, es el resultado de jóvenes abandonando su hogar porque en su tierra no hay futuro.</strong></p>
+<div class="ashira-insight accent-red">
+<p style="font-size:1.15em; line-height:1.75; margin:0;">El Sur está perdiendo lo más valioso que tiene: su gente. Los datos muestran una realidad cruda: a mayor pobreza, más emigración. Aunque el dinero que mandan los que se van <strong>(remesas)</strong> infla los números de ingreso y hace parecer que el estado mejora, la realidad es otra. <strong style="color:#e94560;">No es progreso, es el resultado de jóvenes abandonando su hogar porque en su tierra no hay futuro.</strong></p>
 </div>
 
 ```{python}
@@ -1239,7 +1246,7 @@ fig = px.scatter(
 )
 fig.update_traces(marker=dict(size=14, line=dict(width=1.5, color="white")),
                   textposition="top center",
-                  textfont=dict(size=10, color="#e6edf3", family="Inter,sans-serif"),
+                  textfont=dict(size=11, color="#e6edf3", family="Inter,sans-serif"),
                   hovertemplate=(
                       "<b style='font-size:15px'>%{hovertext}</b><br>"
                       "<span style='color:#8b949e'>Región: </span><b>%{customdata[0]}</b><br>"
@@ -1310,18 +1317,18 @@ fig.show()
 ```{=html}
 <div class="ashira-paradoja">
 <h3>¿Por qué bajan los números pero no la pobreza?</h3>
-<p style="color:#c9d1d9; font-size:1.05em; line-height:1.75; margin:0 0 16px 0;">Los estados del Sur cambian porque pierden gente, no porque ganen oportunidades. Cuando alguien migra buscando trabajo, su pobreza simplemente se muda de casa.</p>
-<p style="color:#c9d1d9; font-size:1.03em; line-height:1.72; margin:0 0 10px 0;"><strong style="color:#e6edf3;">La estadística engaña:</strong> El Sur parece mejorar porque su base poblacional se reduce.</p>
-<p style="color:#c9d1d9; font-size:1.03em; line-height:1.72; margin:0 0 10px 0;"><strong style="color:#e6edf3;">La pobreza se esconde:</strong> En ciudades ricas, la pobreza del migrante se vuelve invisible frente al promedio general.</p>
-<p style="color:#c9d1d9; font-size:1.03em; line-height:1.72; margin:0;"><strong style="color:#e6edf3;">La verdadera meta:</strong> No basta con "limpiar" las cifras de un estado; hay que generar riqueza donde la gente vive.</p>
+<p style="font-size:1.05em; line-height:1.75; margin:0 0 16px 0;">Los estados del Sur cambian porque pierden gente, no porque ganen oportunidades. Cuando alguien migra buscando trabajo, su pobreza simplemente se muda de casa.</p>
+<p style="font-size:1.03em; line-height:1.72; margin:0 0 10px 0;"><strong>La estadística engaña:</strong> El Sur parece mejorar porque su base poblacional se reduce.</p>
+<p style="font-size:1.03em; line-height:1.72; margin:0 0 10px 0;"><strong>La pobreza se esconde:</strong> En ciudades ricas, la pobreza del migrante se vuelve invisible frente al promedio general.</p>
+<p style="font-size:1.03em; line-height:1.72; margin:0;"><strong>La verdadera meta:</strong> No basta con "limpiar" las cifras de un estado; hay que generar riqueza donde la gente vive.</p>
 <p class="paradoja-quote">La estadística mide territorios. La dignidad se juega en personas.</p>
 </div>
 ```
 
 ## El panorama completo
 
-<div style="background:linear-gradient(135deg,#1a1a2e,#16213e); padding:36px 44px; border-radius:14px; border-left:7px solid #0f9b8e; margin:24px 0 16px 0;">
-<p style="color:#c9d1d9; font-size:1.15em; line-height:1.75; margin:0;">Cada indicador cuenta una parte. Juntos revelan el patrón: <strong style="color:#0f9b8e;">los mismos estados aparecen siempre arriba en pobreza, informalidad, remesas e inseguridad alimentaria.</strong> No es azar. Es estructura.</p>
+<div class="ashira-insight accent-teal">
+<p style="font-size:1.15em; line-height:1.75; margin:0;">Cada indicador cuenta una parte. Juntos revelan el patrón: <strong style="color:#0f9b8e;">los mismos estados aparecen siempre arriba en pobreza, informalidad, remesas e inseguridad alimentaria.</strong> No es azar. Es estructura.</p>
 </div>
 
 ```{python}
@@ -1369,8 +1376,8 @@ fig = go.Figure(data=go.Heatmap(
 ))
 fig.update_layout(
     height=900,
-    xaxis=dict(side="top", tickangle=0, tickfont=dict(size=11)),
-    yaxis=dict(tickfont=dict(size=11)),
+    xaxis=dict(side="top", tickangle=0, tickfont=dict(size=12)),
+    yaxis=dict(tickfont=dict(size=12)),
     title=dict(
         text="Los mismos estados, siempre en rojo",
         y=0.985, yanchor="top",
@@ -1408,7 +1415,7 @@ fig.show()
 ```{=html}
 <div class="que-sigue-intro">
 <h3>Esto no es inevitable</h3>
-<p style="color:#c9d1d9; font-size:1.05em; line-height:1.75; margin:0;">En los últimos 20 años, Aguascalientes y Querétaro lograron reducir su pobreza y subir su ingreso mediano. Brasil redujo la pobreza extrema un 58% entre 2003 y 2014 con Bolsa Família. Colombia redujo la pobreza multidimensional de 30% a 18% con Familias en Acción. <strong style="color:#38bdf8;">La convergencia es posible cuando las intervenciones son focalizadas, sostenidas y medidas públicamente.</strong></p>
+<p style="font-size:1.05em; line-height:1.75; margin:0;">En los últimos 20 años, Aguascalientes y Querétaro lograron reducir su pobreza y subir su ingreso mediano. Brasil redujo la pobreza extrema un 58% entre 2003 y 2014 con Bolsa Família. Colombia redujo la pobreza multidimensional de 30% a 18% con Familias en Acción. <strong style="color:#38bdf8;">La convergencia es posible cuando las intervenciones son focalizadas, sostenidas y medidas públicamente.</strong></p>
 </div>
 
 <div class="que-sigue-grid">
@@ -1454,7 +1461,7 @@ fig.show()
 
 <div class="que-sigue-compromiso">
 <h4>Compromiso del equipo ASHIRA</h4>
-<p style="color:#c9d1d9; font-size:0.97em; line-height:1.75; margin:0;">Este análisis se actualizará cuando INEGI publique ENIGH 2026. El código y los datos están disponibles en GitHub bajo licencia <strong>Creative Commons CC BY 4.0</strong>. Si detectas un error, quieres colaborar, o quieres usar estos datos como funcionario, investigador o periodista, escríbenos: <a href="mailto:asharet.b@gmail.com">equipo ASHIRA</a>.</p>
+<p style="font-size:0.97em; line-height:1.75; margin:0;">Este análisis se actualizará cuando INEGI publique ENIGH 2026. El código y los datos están disponibles en GitHub bajo licencia <strong>Creative Commons CC BY 4.0</strong>. Si detectas un error, quieres colaborar, o quieres usar estos datos como funcionario, investigador o periodista, escríbenos: <a href="mailto:asharet.b@gmail.com">equipo ASHIRA</a>.</p>
 </div>
 
 <div class="cta-share">

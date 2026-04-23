@@ -5,6 +5,7 @@
 
 /* ── 0. BASE ─────────────────────────────────────────────── */
 :root {
+  /* ── Dark mode (default) ── */
   --bg-deep:    #060910;
   --bg-base:    #0d1117;
   --bg-card:    #161b22;
@@ -24,6 +25,94 @@
   --toc-width:  240px;
   --font-display: 'Fraunces', Georgia, serif;
   --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  /* ── Shadows ── */
+  --shadow-sm:  0 2px 8px rgba(0,0,0,0.4);
+  --shadow-md:  0 8px 32px rgba(0,0,0,0.55);
+  --shadow-lg:  0 20px 60px rgba(0,0,0,0.35);
+  /* ── Grid overlay ── */
+  --grid-line:  rgba(255,255,255,0.015);
+  /* ── Glows ── */
+  --accent-glow: rgba(233,69,96,0.45);
+  --accent-glow-soft: rgba(233,69,96,0.22);
+  /* ── Mode icon ── */
+  --mode-icon: '☀️';
+}
+
+/* ── LIGHT MODE OVERRIDES ─────────────────────────────────── */
+:root.light-mode {
+  --bg-deep:    #f0f2f5;
+  --bg-base:    #f7f8fa;
+  --bg-card:    #ffffff;
+  --bg-elev:    #eef2f8;
+  --border:     #c8d5e8;
+  --border-soft:#dce6f0;
+  --text-1:     #111318;
+  --text-2:     #1e2a3a;
+  --text-3:     #3d5068;
+  --text-4:     #6b7f96;
+  --text-5:     #9bafc4;
+  --accent:     #1a6ec7;
+  --gold:       #b87208;
+  --teal:       #0a7a6e;
+  --green:      #1ea558;
+  --purple:     #5c4ed6;
+  /* ── Shadows ── */
+  --shadow-sm:  0 2px 8px rgba(0,0,0,0.08);
+  --shadow-md:  0 8px 32px rgba(0,0,0,0.10);
+  --shadow-lg:  0 20px 60px rgba(0,0,0,0.09);
+  /* ── Grid overlay ── */
+  --grid-line:  rgba(0,0,0,0.04);
+  /* ── Glows ── */
+  --accent-glow: rgba(26,110,199,0.28);
+  --accent-glow-soft: rgba(26,110,199,0.14);
+  /* ── Mode icon ── */
+  --mode-icon: '🌙';
+}
+
+/* ── THEME TOGGLE BUTTON ─────────────────────────────────── */
+#ashira-theme-toggle {
+  position: fixed;
+  top: 18px;
+  right: 20px;
+  z-index: 9999;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text-2);
+  font-size: 1.15rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+  transition: background 0.25s ease, border-color 0.25s ease,
+              transform 0.2s ease, box-shadow 0.2s ease;
+  outline: none;
+  backdrop-filter: blur(8px);
+}
+
+#ashira-theme-toggle:hover {
+  border-color: var(--accent);
+  transform: scale(1.1) rotate(12deg);
+  box-shadow: 0 4px 16px var(--accent-glow-soft);
+}
+
+#ashira-theme-toggle:active {
+  transform: scale(0.95);
+}
+
+#ashira-theme-toggle .toggle-icon-dark  { display: block; }
+#ashira-theme-toggle .toggle-icon-light { display: none; }
+:root.light-mode #ashira-theme-toggle .toggle-icon-dark  { display: none; }
+:root.light-mode #ashira-theme-toggle .toggle-icon-light { display: block; }
+
+/* ── SMOOTH TRANSITION ON THEME SWITCH ───────────────────── */
+*, *::before, *::after {
+  transition-property: background-color, border-color, color, box-shadow, opacity;
+  transition-duration: 0.28s;
+  transition-timing-function: ease;
 }
 
 html, body {
@@ -39,6 +128,12 @@ body {
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+/* Light mode body */
+:root.light-mode body {
+  background-color: var(--bg-base) !important;
+  color: var(--text-2) !important;
 }
 
 /* Minimizar márgenes de Quarto */
@@ -79,7 +174,7 @@ strong, b { font-weight: 600; }
 }
 
 /* Selección de texto con color de marca */
-::selection { background: rgba(233,69,96,0.35); color: white; }
+::selection { background: rgba(233,69,96,0.35); color: var(--text-1); }
 
 /* ── 1. HERO ────────────────────────────────────────────── */
 .ashira-hero {
@@ -93,6 +188,15 @@ strong, b { font-weight: 600; }
   position: relative;
   overflow: hidden;
   animation: heroFadeIn 0.8s ease-out;
+}
+
+:root.light-mode .ashira-hero {
+  background:
+    radial-gradient(ellipse at 20% 0%, rgba(26,110,199,0.08), transparent 55%),
+    radial-gradient(ellipse at 80% 100%, rgba(92,78,214,0.05), transparent 60%),
+    linear-gradient(155deg, #eef2f8 0%, #edf4fc 40%, #eef2f8 100%);
+  border-left: 6px solid var(--accent);
+  box-shadow: 0 4px 32px rgba(0,0,0,0.07);
 }
 
 .ashira-hero-inner {
@@ -113,8 +217,8 @@ strong, b { font-weight: 600; }
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
   background-image:
-    linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
   background-size: 32px 32px;
   pointer-events: none;
   mask-image: linear-gradient(160deg, black 30%, transparent 80%);
@@ -153,14 +257,18 @@ strong, b { font-weight: 600; }
 .ashira-hero-title {
   font-size: clamp(40px, 5vw, 64px) !important;
   font-weight: 600 !important;
-  color: white !important;
+  color: var(--text-1) !important;
   line-height: 1.08 !important;
   letter-spacing: -0.02em;
   margin: 0 auto 24px auto !important;
   max-width: 960px;
   text-wrap: balance;
-  text-shadow: 0 2px 24px rgba(0,0,0,0.4);
+  text-shadow: 0 2px 24px rgba(0,0,0,0.15);
   font-family: var(--font-display) !important;
+}
+
+:root.light-mode .ashira-hero-title {
+  text-shadow: 0 1px 8px rgba(0,0,0,0.08);
 }
 
 .ashira-hero-title em {
@@ -226,10 +334,21 @@ strong, b { font-weight: 600; }
   cursor: default;
 }
 
+:root.light-mode .hero-stat {
+  background: rgba(255,255,255,0.72);
+  border: 1px solid rgba(0,0,0,0.07);
+  box-shadow: var(--shadow-sm);
+}
+
 .hero-stat:hover {
   transform: translateY(-4px);
   border-color: rgba(233,69,96,0.45);
   box-shadow: 0 10px 24px rgba(0,0,0,0.35);
+}
+
+:root.light-mode .hero-stat:hover {
+  border-color: rgba(26,110,199,0.35);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.10);
 }
 
 .hero-stat-num {
@@ -275,6 +394,10 @@ strong, b { font-weight: 600; }
   text-align: left;
 }
 
+:root.light-mode .ashira-hero-meta {
+  border-top: 1px solid rgba(0,0,0,0.08);
+}
+
 .ashira-team-label {
   color: var(--accent);
   font-size: 0.7rem;
@@ -312,6 +435,13 @@ strong, b { font-weight: 600; }
   transform: translateX(-50%) translateY(8px);
   pointer-events: none;
   transition: opacity 0.22s ease, transform 0.22s ease;
+}
+
+:root.light-mode .ashira-scroll-hint {
+  background: rgba(247,248,250,0.92);
+  color: var(--accent);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.12);
+  border-color: rgba(26,110,199,0.4);
 }
 
 .ashira-scroll-hint.is-visible {
@@ -413,6 +543,10 @@ strong, b { font-weight: 600; }
   pointer-events: none;
 }
 
+:root.light-mode .hero-map-img {
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+}
+
 .hero-map-caption {
   text-align: center;
   color: var(--text-4);
@@ -455,6 +589,13 @@ nav#quarto-sidebar {
   padding: 28px 0 32px 0 !important;
 }
 
+:root.light-mode #quarto-sidebar,
+:root.light-mode .sidebar.sidebar-navigation,
+:root.light-mode nav#quarto-sidebar {
+  background: linear-gradient(180deg, #eef0f7 0%, #f0f2f7 60%, #edf0f6 100%) !important;
+  border-right: 1px solid var(--border-soft) !important;
+}
+
 #quarto-content > div:first-child,
 .quarto-sidebar-left,
 #quarto-sidebar-glass,
@@ -475,7 +616,7 @@ nav#TOC > h2,
 .toc-active-item ~ .sidebar-title,
 nav[role="doc-toc"] > h2 {
   color: var(--accent) !important;
-  font-size: 0.7rem !important;
+  font-size: 1.2rem !important;
   font-weight: 800 !important;
   letter-spacing: 0.22em !important;
   text-transform: uppercase !important;
@@ -551,6 +692,13 @@ nav[role="doc-toc"] ul li > a:hover,
   transform: translateX(2px);
 }
 
+:root.light-mode nav[role="doc-toc"] ul li > a:hover,
+:root.light-mode #TOC ul li > a:hover {
+  color: var(--text-1) !important;
+  background: rgba(26,110,199,0.06) !important;
+  border-left-color: rgba(26,110,199,0.4) !important;
+}
+
 nav[role="doc-toc"] ul li > a:hover::before,
 #TOC ul li > a:hover::before {
   color: var(--accent);
@@ -581,8 +729,8 @@ nav[role="doc-toc"] ul li > a.active::before,
 body { padding-top: 0 !important; }
 
 main.content {
-  padding: 0 4rem 6rem 4rem !important;
-  max-width: 1180px;
+  padding: 0 2rem 6rem 2rem !important;
+  max-width: 1900px;
 }
 
 /* Margin space between hero and first section */
@@ -617,7 +765,7 @@ main.content {
   display: inline-block;
   flex-shrink: 0;
   align-self: center;
-  box-shadow: 0 0 12px rgba(233,69,96,0.45);
+  box-shadow: 0 0 12px var(--accent-glow);
 }
 
 .anchorjs-link {
@@ -641,8 +789,17 @@ h3:hover .anchorjs-link { opacity: 0.7 !important; }
   transition: background 0.25s ease;
 }
 
+:root.light-mode .cell-output-display {
+  background: rgba(0,0,0,0.02);
+  border: 1px solid var(--border-soft);
+}
+
 .cell-output-display:hover {
   background: rgba(22,27,34,0.5);
+}
+
+:root.light-mode .cell-output-display:hover {
+  background: rgba(0,0,0,0.04);
 }
 
 .cell-output-display .plotly-graph-div,
@@ -661,18 +818,34 @@ figure img {
   box-shadow: 0 8px 32px rgba(0,0,0,0.6);
 }
 
+:root.light-mode .cell-output-display img,
+:root.light-mode .quarto-figure img,
+:root.light-mode figure img {
+  box-shadow: 0 6px 24px rgba(0,0,0,0.12);
+}
+
 /* ── 6. CAPTIONS ────────────────────────────────────────── */
 figcaption,
 .figure-caption,
 .quarto-float-caption,
 p.caption {
-  color: var(--text-5) !important;
+  color: #8b949e !important;
   font-size: 0.74rem !important;
   text-align: center !important;
   margin-top: 0.6rem !important;
   font-style: normal !important;
   line-height: 1.5 !important;
-  opacity: 0.78 !important;
+  opacity: 1 !important;
+  border-top: 1px solid rgba(255,255,255,0.08) !important;
+  padding-top: 0.5rem !important;
+}
+
+:root.light-mode figcaption,
+:root.light-mode .figure-caption,
+:root.light-mode .quarto-float-caption,
+:root.light-mode p.caption {
+  color: var(--text-4) !important;
+  border-top: 1px solid rgba(0,0,0,0.07) !important;
 }
 
 .quarto-float-caption {
@@ -705,6 +878,12 @@ p.caption {
   border-left-width: 5px !important;
 }
 
+:root.light-mode .callout-important {
+  background: linear-gradient(135deg, rgba(26,110,199,0.06), rgba(26,110,199,0.01)) !important;
+  border: 1px solid rgba(26,110,199,0.18) !important;
+  border-left-width: 5px !important;
+}
+
 .callout-important .callout-title-container,
 .callout-important .callout-title {
   color: var(--accent) !important;
@@ -719,6 +898,12 @@ p.caption {
   border-left-width: 5px !important;
 }
 
+:root.light-mode .callout-warning {
+  background: linear-gradient(135deg, rgba(196,125,10,0.06), rgba(196,125,10,0.01)) !important;
+  border: 1px solid rgba(196,125,10,0.18) !important;
+  border-left-width: 5px !important;
+}
+
 .callout-warning .callout-title-container,
 .callout-warning .callout-title {
   color: var(--gold) !important;
@@ -730,6 +915,12 @@ p.caption {
   background: linear-gradient(135deg, rgba(15,155,142,0.08), rgba(15,155,142,0.02)) !important;
   border-left-color: var(--teal) !important;
   border: 1px solid rgba(15,155,142,0.22) !important;
+  border-left-width: 5px !important;
+}
+
+:root.light-mode .callout-tip {
+  background: linear-gradient(135deg, rgba(10,122,110,0.06), rgba(10,122,110,0.01)) !important;
+  border: 1px solid rgba(10,122,110,0.18) !important;
   border-left-width: 5px !important;
 }
 
@@ -899,8 +1090,14 @@ nav a,
   margin: 32px 0;
   box-shadow: 0 10px 30px rgba(0,0,0,0.25);
 }
+
+:root.light-mode .ashira-ciclo {
+  background: linear-gradient(160deg, #f7f8fa 0%, #f0f2f7 100%);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.07);
+  border: 1px solid var(--border);
+}
 .ashira-ciclo-title {
-  color: white;
+  color: var(--text-1);
   font-size: 1.4em;
   font-weight: 800;
   margin: 0 0 6px 0;
@@ -933,17 +1130,29 @@ nav a,
   flex-direction: column;
   justify-content: flex-start;
 }
+
+:root.light-mode .ciclo-card {
+  background: rgba(255,255,255,0.9);
+  box-shadow: 0 3px 14px rgba(0,0,0,0.08);
+  border: 1px solid rgba(0,0,0,0.07);
+  border-top: 3px solid var(--c, #1a6ec7);
+}
 .ciclo-card:hover {
   transform: translateY(-3px);
   box-shadow: 0 8px 18px rgba(0,0,0,0.35);
 }
+
+:root.light-mode .ciclo-card:hover {
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
 .ciclo-num {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   width: 26px; height: 26px;
   background: var(--c, #e94560);
-  color: #0d1117;
+  color: #fff;
   font-weight: 900;
   font-size: 0.85em;
   border-radius: 50%;
@@ -1003,6 +1212,12 @@ nav a,
   text-align: center;
   letter-spacing: -0.01em;
 }
+
+:root.light-mode .ciclo-core {
+  background: radial-gradient(circle at center, rgba(26,110,199,0.10), rgba(238,242,248,0.5));
+  border: 1px dashed rgba(26,110,199,0.35);
+  color: var(--accent);
+}
 .ashira-ciclo-loop {
   display: none;
 }
@@ -1039,6 +1254,15 @@ nav a,
   overflow: hidden;
 }
 
+:root.light-mode .ashira-closing {
+  background:
+    radial-gradient(ellipse at 80% 0%, rgba(92,78,214,0.05), transparent 55%),
+    radial-gradient(ellipse at 10% 100%, rgba(26,110,199,0.06), transparent 60%),
+    linear-gradient(160deg, #eef2f8 0%, #edf4fc 50%, #eef2f8 100%);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+  border: 1px solid var(--border);
+}
+
 .ashira-closing::before {
   content: '';
   position: absolute;
@@ -1067,7 +1291,7 @@ nav a,
 }
 
 .closing-title {
-  color: white !important;
+  color: var(--text-1) !important;
   font-size: clamp(1.8rem, 3vw, 2.4rem) !important;
   font-weight: 900 !important;
   line-height: 1.15 !important;
@@ -1079,6 +1303,10 @@ nav a,
   color: var(--accent);
   background: linear-gradient(180deg, transparent 62%, rgba(233,69,96,0.18) 62%);
   padding: 0 4px;
+}
+
+:root.light-mode .closing-title-accent {
+  background: linear-gradient(180deg, transparent 62%, rgba(26,110,199,0.14) 62%);
 }
 
 .closing-pillars {
@@ -1096,10 +1324,22 @@ nav a,
   position: relative;
   transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
+
+:root.light-mode .pillar {
+  background: rgba(255,255,255,0.8);
+  border: 1px solid rgba(0,0,0,0.07);
+  box-shadow: var(--shadow-sm);
+}
+
 .pillar:hover {
   transform: translateY(-4px);
   border-color: rgba(233,69,96,0.4);
   box-shadow: 0 10px 24px rgba(0,0,0,0.35);
+}
+
+:root.light-mode .pillar:hover {
+  border-color: rgba(26,110,199,0.3);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.10);
 }
 .pillar-num {
   color: rgba(233,69,96,0.4);
@@ -1108,8 +1348,11 @@ nav a,
   letter-spacing: 0.05em;
   margin-bottom: 10px;
 }
+:root.light-mode .pillar-num {
+  color: rgba(26,110,199,0.35);
+}
 .pillar-head {
-  color: white;
+  color: var(--text-1);
   font-size: 1.05rem;
   font-weight: 800;
   margin-bottom: 10px;
@@ -1129,6 +1372,12 @@ nav a,
   border-left: 3px solid var(--gold);
   border-radius: 0 12px 12px 0;
 }
+
+:root.light-mode .closing-policy {
+  background: rgba(196,125,10,0.05);
+  border-left: 3px solid var(--gold);
+}
+
 .closing-policy-title {
   color: var(--gold) !important;
   font-size: 0.82rem !important;
@@ -1145,10 +1394,13 @@ nav a,
 }
 .closing-policy p:last-child { margin-bottom: 0; }
 .closing-quote {
-  color: white;
+  color: var(--text-1);
   font-weight: 600;
   background: linear-gradient(180deg, transparent 70%, rgba(233,69,96,0.22) 70%);
   padding: 0 3px;
+}
+:root.light-mode .closing-quote {
+  background: linear-gradient(180deg, transparent 70%, rgba(26,110,199,0.16) 70%);
 }
 
 .closing-cta {
@@ -1183,6 +1435,9 @@ nav a,
   color: var(--text-2) !important;
   box-shadow: none;
 }
+:root.light-mode .closing-cta-btn.secondary {
+  border: 1px solid rgba(0,0,0,0.15) !important;
+}
 .closing-cta-btn.secondary:hover {
   border-color: var(--accent) !important;
   color: var(--accent) !important;
@@ -1197,6 +1452,10 @@ nav a,
   line-height: 1.6;
 }
 
+:root.light-mode .closing-footer {
+  border-top: 1px solid rgba(0,0,0,0.08);
+}
+
 /* ── Excepciones que confirman la regla ──────────────── */
 .ashira-excepciones {
   background: linear-gradient(160deg, rgba(15,155,142,0.07), rgba(22,27,34,0.7));
@@ -1206,8 +1465,12 @@ nav a,
   margin: 32px 0;
 }
 
+:root.light-mode .ashira-excepciones {
+  background: linear-gradient(160deg, rgba(10,122,110,0.06), rgba(240,242,247,0.95));
+}
+
 .ashira-excepciones h3 {
-  color: #0f9b8e !important;
+  color: var(--teal) !important;
   font-size: 1.2rem !important;
   font-weight: 700 !important;
   font-family: var(--font-display) !important;
@@ -1218,14 +1481,18 @@ nav a,
 /* ── La paradoja del migrante ────────────────────────── */
 .ashira-paradoja {
   background: linear-gradient(160deg, rgba(233,69,96,0.07), rgba(22,27,34,0.7));
-  border-left: 7px solid #e94560;
+  border-left: 7px solid var(--accent);
   border-radius: 0 14px 14px 0;
   padding: 32px 40px;
   margin: 32px 0;
 }
 
+:root.light-mode .ashira-paradoja {
+  background: linear-gradient(160deg, rgba(26,110,199,0.06), rgba(238,242,248,0.95));
+}
+
 .ashira-paradoja h3 {
-  color: #e94560 !important;
+  color: var(--accent) !important;
   font-size: 1.2rem !important;
   font-weight: 700 !important;
   font-family: var(--font-display) !important;
@@ -1254,6 +1521,10 @@ nav a,
   padding-top: 20px;
 }
 
+:root.light-mode .paradoja-quote {
+  border-top: 1px solid rgba(0,0,0,0.08);
+}
+
 /* ── Sección ¿Qué sigue? ──────────────────────────────── */
 .que-sigue-intro {
   background: linear-gradient(160deg, rgba(56,189,248,0.07), rgba(22,27,34,0.7));
@@ -1263,12 +1534,20 @@ nav a,
   margin-bottom: 36px;
 }
 
+:root.light-mode .que-sigue-intro {
+  background: linear-gradient(160deg, rgba(30,150,220,0.06), rgba(240,242,247,0.95));
+}
+
 .que-sigue-intro h3 {
   color: #38bdf8 !important;
   font-size: 1.2rem !important;
   font-weight: 700 !important;
   font-family: var(--font-display) !important;
   margin: 0 0 12px 0 !important;
+}
+
+:root.light-mode .que-sigue-intro h3 {
+  color: #1882b8 !important;
 }
 
 .que-sigue-grid {
@@ -1286,9 +1565,20 @@ nav a,
   transition: transform 0.25s ease, border-color 0.25s ease;
 }
 
+:root.light-mode .que-sigue-card {
+  background: rgba(255,255,255,0.85);
+  border: 1px solid rgba(0,0,0,0.07);
+  box-shadow: var(--shadow-sm);
+}
+
 .que-sigue-card:hover {
   transform: translateY(-3px);
   border-color: rgba(56,189,248,0.3);
+}
+
+:root.light-mode .que-sigue-card:hover {
+  border-color: rgba(24,130,184,0.3);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.09);
 }
 
 .que-sigue-card-icon {
@@ -1298,7 +1588,7 @@ nav a,
 }
 
 .que-sigue-card-title {
-  color: white;
+  color: var(--text-1);
   font-weight: 700;
   font-size: 0.95rem;
   margin: 0 0 10px 0;
@@ -1319,6 +1609,13 @@ nav a,
   border-radius: 12px;
   padding: 24px 28px;
   margin: 24px 0;
+}
+
+:root.light-mode .que-sigue-aliados,
+:root.light-mode .que-sigue-compromiso {
+  background: rgba(255,255,255,0.8);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
 }
 
 .que-sigue-aliados h4,
@@ -1395,12 +1692,16 @@ nav a,
 .cta-share-btn.link {
   background: var(--accent);
   color: white !important;
-  box-shadow: 0 4px 16px rgba(233,69,96,0.3);
+  box-shadow: 0 4px 16px var(--accent-glow-soft);
 }
 
 .cta-share-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+
+:root.light-mode .cta-share-btn:hover {
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
 }
 
 /* ── 15. RESPONSIVE ────────────────────────────────────── */
@@ -1448,3 +1749,196 @@ nav a,
   .cta-share { flex-direction: column; align-items: center; }
   .que-sigue-intro { padding: 20px 18px; }
 }
+
+/* ── 16. THEME TOGGLE — RESPONSIVE ──────────────────────── */
+@media (max-width: 900px) {
+  #ashira-theme-toggle {
+    top: 12px;
+    right: 14px;
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+}
+
+/* ── 17. LIGHT MODE — SELECTION COLOR ───────────────────── */
+:root.light-mode ::selection {
+  background: rgba(26,110,199,0.22);
+  color: #111318;
+}
+
+/* ── 18. LIGHT MODE — SCROLLBAR ─────────────────────────── */
+:root.light-mode ::-webkit-scrollbar-track { background: var(--bg-base); }
+:root.light-mode ::-webkit-scrollbar-thumb { background: var(--border); }
+:root.light-mode ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+/* ── 19. THEME TOGGLE JS INJECTION ──────────────────────── */
+/* NOTE: Add this <script> block to your .qmd file (e.g. in a raw HTML block) 
+   or in the _quarto.yml under include-in-header to inject the button and logic.
+   See ashira_theme_toggle.html for the ready-to-use snippet. */
+/* ── 20. NARRATIVE INSIGHT BOXES (theme-aware) ──────────── */
+/* Reemplaza los div con background hardcodeado en el .qmd   */
+.ashira-insight {
+  padding: 36px 44px;
+  border-radius: 14px;
+  margin: 24px 0 16px 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+}
+
+.ashira-insight.accent-blue  { border-left: 7px solid #38bdf8; }
+.ashira-insight.accent-red   { border-left: 7px solid var(--accent); }
+.ashira-insight.accent-gold  { border-left: 7px solid var(--gold); }
+.ashira-insight.accent-purple{ border-left: 7px solid var(--purple); }
+.ashira-insight.accent-green { border-left: 7px solid var(--green); }
+.ashira-insight.accent-teal  { border-left: 7px solid var(--teal); }
+
+/* Dark mode: fondo azul oscuro con gradiente, como antes */
+.ashira-insight {
+  background: linear-gradient(135deg, #1a1a2e, #16213e);
+}
+
+/* Light mode: fondo blanco limpio con tinte muy sutil */
+:root.light-mode .ashira-insight {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+:root.light-mode .ashira-insight.accent-blue   { background: linear-gradient(135deg, rgba(56,189,248,0.04), #ffffff); }
+:root.light-mode .ashira-insight.accent-red    { background: linear-gradient(135deg, rgba(233,69,96,0.04), #ffffff); }
+:root.light-mode .ashira-insight.accent-gold   { background: linear-gradient(135deg, rgba(245,166,35,0.04), #ffffff); }
+:root.light-mode .ashira-insight.accent-purple { background: linear-gradient(135deg, rgba(123,104,238,0.04), #ffffff); }
+:root.light-mode .ashira-insight.accent-green  { background: linear-gradient(135deg, rgba(46,204,113,0.04), #ffffff); }
+:root.light-mode .ashira-insight.accent-teal   { background: linear-gradient(135deg, rgba(15,155,142,0.04), #ffffff); }
+
+/* Texto dentro de insight boxes — theme-aware */
+.ashira-insight p {
+  color: var(--text-2) !important;
+  font-size: 1.1em;
+  line-height: 1.75;
+  margin: 0 !important;
+}
+
+/* Párrafos sueltos con color hardcodeado (líneas 1312-1317 y similares) */
+.ashira-narrative-p {
+  color: var(--text-2) !important;
+  font-size: 1.03em;
+  line-height: 1.72;
+  margin: 0 0 10px 0;
+}
+
+.ashira-narrative-p strong {
+  color: var(--text-1) !important;
+}
+
+/* ── 21. LIGHT MODE — RED REMNANTS FIX ──────────────────── */
+
+/* Hero badge */
+:root.light-mode .ashira-hero-badge {
+  color: var(--accent);
+  border: 1px solid rgba(26,110,199,0.30);
+  background: rgba(26,110,199,0.06);
+}
+
+/* Hero title italic highlight */
+:root.light-mode .ashira-hero-title em {
+  background: linear-gradient(180deg, transparent 62%, rgba(26,110,199,0.18) 62%);
+}
+:root.light-mode .ashira-hero-title em:hover {
+  background: linear-gradient(180deg, transparent 30%, rgba(26,110,199,0.28) 30%);
+}
+
+/* Hero source links hover */
+:root.light-mode .hero-source-link:hover {
+  color: #1255a0 !important;
+  border-bottom-color: #1255a0 !important;
+}
+
+/* Scroll hint arrow circle */
+:root.light-mode .scroll-hint-arrow {
+  background: rgba(26,110,199,0.18);
+  color: #1a6ec7;
+}
+
+/* Section h2 accent bar glow */
+:root.light-mode #quarto-document-content h2::before {
+  box-shadow: 0 0 10px rgba(26,110,199,0.35);
+}
+
+/* TOC active item — remove red gradient */
+:root.light-mode nav[role="doc-toc"] ul li > a.active,
+:root.light-mode #TOC ul li > a.active {
+  background: linear-gradient(90deg, rgba(26,110,199,0.10), transparent) !important;
+  border-left-color: var(--accent) !important;
+}
+
+/* Code fold summary hover */
+:root.light-mode details.code-fold > summary:hover {
+  border-color: var(--accent) !important;
+  background: rgba(26,110,199,0.04);
+}
+
+/* Panel tabset hover + active */
+:root.light-mode .panel-tabset .nav-tabs .nav-link:hover {
+  background: rgba(26,110,199,0.05) !important;
+  border-color: rgba(26,110,199,0.2) !important;
+}
+:root.light-mode .panel-tabset .nav-tabs .nav-link.active {
+  color: var(--accent) !important;
+}
+
+/* Callout-important border stays blue-brand in light */
+:root.light-mode .callout-important .callout-title-container,
+:root.light-mode .callout-important .callout-title {
+  color: var(--accent) !important;
+}
+
+/* CTA link share btn */
+:root.light-mode .cta-share-btn.link {
+  background: var(--accent);
+  box-shadow: 0 4px 16px rgba(26,110,199,0.25);
+}
+
+/* Closing CTA primary btn */
+:root.light-mode .closing-cta-btn:not(.secondary) {
+  box-shadow: 0 6px 18px rgba(26,110,199,0.22);
+}
+:root.light-mode .closing-cta-btn:not(.secondary):hover {
+  box-shadow: 0 10px 24px rgba(26,110,199,0.38);
+}
+
+/* Loop arrow border */
+:root.light-mode .loop-arrow {
+  border: 1px solid rgba(26,110,199,0.35);
+  background: rgba(26,110,199,0.07);
+}
+
+/* ── 22. PLOTLY CHARTS — LIGHT MODE OVERRIDE ─────────────── */
+/*
+   Plotly renders on a <div> with inline bgcolor. We can't override
+   inline styles from CSS alone, so we use a JS hook (see section 23).
+   These classes are applied by the theme-toggle script to the
+   .js-plotly-plot containers.
+*/
+:root.light-mode .js-plotly-plot .bg {
+  fill: #ffffff !important;
+}
+
+/* Plotly SVG text elements */
+:root.light-mode .js-plotly-plot .gtitle text,
+:root.light-mode .js-plotly-plot .xtitle,
+:root.light-mode .js-plotly-plot .ytitle,
+:root.light-mode .js-plotly-plot .xtick text,
+:root.light-mode .js-plotly-plot .ytick text,
+:root.light-mode .js-plotly-plot .legendtext,
+:root.light-mode .js-plotly-plot text {
+  fill: #1e2a3a !important;
+}
+
+/* Plotly grid lines */
+:root.light-mode .js-plotly-plot .gridlayer path,
+:root.light-mode .js-plotly-plot .xgrid,
+:root.light-mode .js-plotly-plot .ygrid {
+  stroke: #dce6f0 !important;
+}
+
