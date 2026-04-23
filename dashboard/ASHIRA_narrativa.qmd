@@ -155,12 +155,12 @@ REGION_COLORS = {"Norte": TEAL, "Centro": GOLD, "Sur": ACCENT, "CDMX": PURPLE}
 ashira_tpl = go.layout.Template()
 ashira_tpl.layout = go.Layout(
     paper_bgcolor=BG, plot_bgcolor=CARD,
-    font=dict(color="#c9d1d9", family="Inter, -apple-system, sans-serif", size=13),
-    title=dict(font=dict(family="Fraunces, Georgia, serif", color="white", size=20), x=0.5, xanchor="center"),
+    font=dict(color="#c9d1d9", family="Inter, -apple-system, sans-serif", size=14),
+    title=dict(font=dict(family="Fraunces, Georgia, serif", color="white", size=22), x=0.5, xanchor="center"),
     xaxis=dict(gridcolor="#21262d", zerolinecolor="#21262d", title_font_color="white"),
     yaxis=dict(gridcolor="#21262d", zerolinecolor="#21262d", title_font_color="white"),
     colorway=[ACCENT, GOLD, TEAL, PURPLE, GREEN],
-    hoverlabel=dict(bgcolor="#1a1a2e", font_color="white", bordercolor="#30363d", font_size=13),
+    hoverlabel=dict(bgcolor="#1a1a2e", font_color="white", bordercolor="#30363d", font_size=14),
     legend=dict(font_color="#c9d1d9", bgcolor="rgba(0,0,0,0)", borderwidth=0),
     margin=dict(l=40, r=40, t=60, b=40),
 )
@@ -593,7 +593,7 @@ fig = px.bar(
     labels={"pct_pobreza_2024":"Pobreza (%)", "estado":"", "region":"Región"},
 )
 fig.update_traces(
-    textposition="outside", textfont_size=11, marker_line_width=0,
+    textposition="outside", textfont_size=12, marker_line_width=0,
     hovertemplate=(
         "<b>%{y}</b><br>"
         "Región: <b>%{customdata[0]}</b><br>"
@@ -605,14 +605,14 @@ fig.add_vline(x=nac, line_dash="dash", line_color="#f5a623", opacity=0.85,
               line_width=2,
               annotation_text=f" Promedio nacional: {nac:.1f}% ",
               annotation_position="top",
-              annotation_font_color="#0d1117", annotation_font_size=12,
+              annotation_font_color="#0d1117", annotation_font_size=13,
               annotation_bgcolor="#f5a623", annotation_bordercolor="#f5a623",
               annotation_borderwidth=1, annotation_borderpad=4)
 # Anotaciones de extremos
 _chiapas_v = df_plot[df_plot["estado"]=="Chiapas"]["pct_pobreza_2024"].values[0]
 _bc_v = df_plot[df_plot["estado"]=="Baja California"]["pct_pobreza_2024"].values[0]
 fig.add_annotation(
-    x=_chiapas_v + 4.5, y="Chiapas",
+    x=_chiapas_v + 6, y="Chiapas",
     text=f"<b>+{_chiapas_v-nac:.0f} puntos</b> sobre el promedio",
     showarrow=False, font=dict(color=ACCENT, size=10), xanchor="left",
 )
@@ -659,14 +659,14 @@ fig.add_annotation(
     bordercolor="rgba(255,255,255,0.12)",
     borderwidth=1,
     borderpad=24,
-    font=dict(size=13, color="#c9d1d9", family="Arial"),
+    font=dict(size=15, color="#c9d1d9", family="Inter, -apple-system, sans-serif"),
     align="left",
 )
 fig.update_layout(
     height=860,
     margin=dict(l=150, r=80, t=110, b=50),
     xaxis=dict(title="Porcentaje de la población en pobreza multidimensional", ticksuffix="%", range=[0,92]),
-    yaxis=dict(categoryorder="total ascending", tickfont=dict(size=12), title=""),
+    yaxis=dict(categoryorder="total ascending", tickfont=dict(size=13), title=""),
     title=dict(
         text="Pobreza multidimensional por estado · 2024",
         y=0.98, yanchor="top",
@@ -771,7 +771,7 @@ fig.add_trace(go.Scatter(
 # Línea de referencia en 1.0 (igualdad)
 fig.add_hline(y=1.0, line_dash="dash", line_color="rgba(255,255,255,0.2)",
               annotation_text="Igualdad (1.0x)",
-              annotation_font_color="#8b949e", annotation_font_size=10,
+              annotation_font_color="#8b949e", annotation_font_size=11,
               row=1, col=2)
 
 fig.update_xaxes(dtick=2, title_text="Año", title_standoff=12, row=1, col=1)
@@ -854,7 +854,7 @@ fig = px.scatter(
 )
 fig.update_traces(marker=dict(size=14, line=dict(width=1.5, color="white")),
                   textposition="top center",
-                  textfont=dict(size=10, color="#e6edf3", family="Inter,sans-serif"),
+                  textfont=dict(size=11, color="#e6edf3", family="Inter,sans-serif"),
                   hovertemplate=(
                       "<b style='font-size:15px'>%{hovertext}</b><br>"
                       "<span style='color:#8b949e'>Región: </span><b>%{customdata[0]}</b><br>"
@@ -949,7 +949,7 @@ fig = px.scatter(
 )
 fig.update_traces(marker=dict(size=14, line=dict(width=1.5, color="white")),
                   textposition="top center",
-                  textfont=dict(size=10, color="#e6edf3", family="Inter,sans-serif"),
+                  textfont=dict(size=11, color="#e6edf3", family="Inter,sans-serif"),
                   hovertemplate=(
                       "<b style='font-size:15px'>%{hovertext}</b><br>"
                       "<span style='color:#8b949e'>Región: </span><b>%{customdata[0]}</b><br>"
@@ -1029,7 +1029,7 @@ fig = px.bar(
     labels={"pct_inseg_alim":"Inseguridad alimentaria (%)", "estado":"", "region":"Región"},
 )
 fig.update_traces(
-    textposition="outside", textfont_size=10, marker_line_width=0,
+    textposition="outside", textfont_size=11, marker_line_width=0,
     cliponaxis=False,
     hovertemplate="<b>%{y}</b><br>Región: <b>%{customdata[0]}</b><br>Inseguridad alimentaria: <b>%{customdata[1]:.1f}%</b><extra></extra>",
 )
@@ -1037,7 +1037,7 @@ fig.add_vline(x=promedio_nacional_alim, line_dash="dash", line_color="#f5a623", 
               line_width=2,
               annotation_text=f" Promedio nacional · {promedio_nacional_alim:.1f}% ",
               annotation_position="top",
-              annotation_font_color="#0d1117", annotation_font_size=12,
+              annotation_font_color="#0d1117", annotation_font_size=13,
               annotation_bgcolor="#f5a623", annotation_bordercolor="#f5a623",
               annotation_borderwidth=1, annotation_borderpad=4)
 fig.update_layout(
@@ -1045,7 +1045,7 @@ fig.update_layout(
     margin=dict(l=155, r=55, t=130, b=60),
     xaxis=dict(title=dict(text="Porcentaje de población con inseguridad alimentaria", standoff=12), ticksuffix="%",
                range=[0, df_inseg_alim["pct_inseg_alim"].max() * 1.32]),
-    yaxis=dict(categoryorder="total ascending", tickfont=dict(size=12)),
+    yaxis=dict(categoryorder="total ascending", tickfont=dict(size=13)),
     title=dict(
         text="El hambre también tiene código postal",
         y=0.97, yanchor="top",
@@ -1133,7 +1133,7 @@ fig = px.bar(
     labels={"pct_remesas":"Remesas (% del ingreso)", "estado":"", "region":"Región"},
 )
 fig.update_traces(
-    textposition="outside", textfont_size=10, marker_line_width=0,
+    textposition="outside", textfont_size=11, marker_line_width=0,
     cliponaxis=False,
     hovertemplate="<b>%{y}</b><br>Región: <b>%{customdata[0]}</b><br>Remesas: <b>%{customdata[1]:.1f}%</b> del ingreso<extra></extra>",
 )
@@ -1142,7 +1142,7 @@ fig.update_layout(
     margin=dict(l=155, r=55, t=130, b=60),
     xaxis=dict(title=dict(text="Porcentaje del ingreso corriente que proviene de remesas", standoff=12), ticksuffix="%",
                range=[0, df_remesas_2024["pct_remesas"].max() * 1.17]),
-    yaxis=dict(categoryorder="total ascending", tickfont=dict(size=12)),
+    yaxis=dict(categoryorder="total ascending", tickfont=dict(size=13)),
     title=dict(
         text="¿Quién vive de los que se fueron?",
         y=0.97, yanchor="top",
@@ -1239,7 +1239,7 @@ fig = px.scatter(
 )
 fig.update_traces(marker=dict(size=14, line=dict(width=1.5, color="white")),
                   textposition="top center",
-                  textfont=dict(size=10, color="#e6edf3", family="Inter,sans-serif"),
+                  textfont=dict(size=11, color="#e6edf3", family="Inter,sans-serif"),
                   hovertemplate=(
                       "<b style='font-size:15px'>%{hovertext}</b><br>"
                       "<span style='color:#8b949e'>Región: </span><b>%{customdata[0]}</b><br>"
@@ -1369,8 +1369,8 @@ fig = go.Figure(data=go.Heatmap(
 ))
 fig.update_layout(
     height=900,
-    xaxis=dict(side="top", tickangle=0, tickfont=dict(size=11)),
-    yaxis=dict(tickfont=dict(size=11)),
+    xaxis=dict(side="top", tickangle=0, tickfont=dict(size=12)),
+    yaxis=dict(tickfont=dict(size=12)),
     title=dict(
         text="Los mismos estados, siempre en rojo",
         y=0.985, yanchor="top",
