@@ -1469,25 +1469,25 @@ Pobreza estructural
 <div class="que-sigue-grid">
 
 <div class="que-sigue-card">
-<span class="que-sigue-card-icon"><svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#e94560" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></span>
+<span class="que-sigue-card-icon"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
 <div class="que-sigue-card-title">Si eres ciudadano</div>
 <p>Consulta <a href="https://datos.gob.mx" target="_blank" rel="noopener">Datos Abiertos</a>, <a href="https://imco.org.mx" target="_blank" rel="noopener">IMCO</a> y <a href="https://www.mejoratuescuela.org" target="_blank" rel="noopener">MejoraTuEscuela</a>. Escríbele a tu diputado federal sobre el presupuesto de transferencias sociales. Exige metas estatales públicas.</p>
 </div>
 
 <div class="que-sigue-card">
-<span class="que-sigue-card-icon"><svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#e94560" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/><line x1="11" y1="8" x2="11" y2="14"/></svg></span>
+<span class="que-sigue-card-icon"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><line x1="2" y1="20" x2="22" y2="20"/></svg></span>
 <div class="que-sigue-card-title">Si eres investigador o estudiante</div>
 <p>Replica este análisis a nivel municipal. Explora el efecto intergeneracional de las remesas. El código y datos están disponibles en <a href="https://github.com" target="_blank" rel="noopener">GitHub del equipo ASHIRA</a> bajo CC BY 4.0.</p>
 </div>
 
 <div class="que-sigue-card">
-<span class="que-sigue-card-icon"><svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#e94560" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="15" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="17"/><line x1="9.5" y1="14.5" x2="14.5" y2="14.5"/></svg></span>
+<span class="que-sigue-card-icon"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="22" x2="21" y2="22"/><line x1="6" y1="18" x2="6" y2="11"/><line x1="10" y1="18" x2="10" y2="11"/><line x1="14" y1="18" x2="14" y2="11"/><line x1="18" y1="18" x2="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg></span>
 <div class="que-sigue-card-title">Si eres funcionario público</div>
 <p>Adopta metas estatales focalizadas. Diseña mecanismos de asignación asimétrica del gasto. Reporta trimestralmente los indicadores de convergencia Norte–Sur para cada entidad.</p>
 </div>
 
 <div class="que-sigue-card">
-<span class="que-sigue-card-icon"><svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#e94560" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="18" rx="2"/><line x1="6" y1="8" x2="18" y2="8"/><line x1="6" y1="12" x2="18" y2="12"/><line x1="6" y1="16" x2="12" y2="16"/></svg></span>
+<span class="que-sigue-card-icon"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></span>
 <div class="que-sigue-card-title">Si eres periodista o comunicador</div>
 <p>Descarga los gráficos en PNG y los datos en CSV desde nuestro repositorio. Los hallazgos clave están listos para citar. Cubre la brecha Norte–Sur como la historia estructural que es, no como dato puntual.</p>
 </div>
