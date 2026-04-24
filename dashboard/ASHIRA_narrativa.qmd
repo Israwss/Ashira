@@ -508,7 +508,7 @@ for col_n, (df_y, year) in enumerate([(e16_map, 2016), (e24_map, 2024)], start=1
             hovertemplate=(
                 f"<b style='font-size:14px'>%{{location}}</b><br>"
                 f"<span style='color:#8b949e'>Ingreso mediano {year}: </span>"
-                f"<b>${{customdata[1]:,.0f}}/mes</b>"
+                f"<b>$%{{customdata[1]:,.0f}}/mes</b>"
                 "<extra></extra>"
             ),
         ),
@@ -1390,7 +1390,7 @@ _nodes_js = _json.dumps([
 _geo_js = _json.dumps(mx_geo, separators=(",",":"))
 
 _html_globe = f"""
-<div style="font-family:Inter,sans-serif;border-radius:14px;overflow:hidden;margin:8px 0 4px;background:#000;">
+<div style="font-family:Inter,sans-serif;border-radius:14px;overflow:hidden;margin:8px 0 4px;background:#000;position:relative;">
   <div style="padding:22px 30px 10px;background:#000;">
     <h3 style="color:#c9d1d9;margin:0 0 5px;font-family:Fraunces,serif;font-size:1.25em;font-weight:600;">
       &#191;Ad&#243;nde va la gente que se va?
@@ -1400,21 +1400,30 @@ _html_globe = f"""
       Arrastra para rotar &nbsp;&#183;&nbsp; Scroll para zoom &nbsp;&#183;&nbsp; Hover sobre arcos y estados
     </p>
   </div>
-  <div id="globe-flujo-ashira" style="width:100%;height:660px;background:#040c18;display:flex;align-items:center;justify-content:center;">
+  <div id="globe-flujo-ashira" style="width:100%;height:520px;background:#040c18;display:flex;align-items:center;justify-content:center;">
     <span id="globe-loading-msg" style="color:#484f58;font-size:13px;font-family:Inter,sans-serif;">Cargando globo WebGL...</span>
   </div>
-  <div style="padding:10px 30px 18px;background:#000;display:flex;gap:20px;align-items:center;flex-wrap:wrap;">
+  <div style="position:absolute;bottom:0;left:0;right:0;z-index:20;background:rgba(4,12,24,0.92);padding:10px 22px 12px;display:flex;gap:16px;align-items:center;flex-wrap:wrap;row-gap:8px;border-top:1px solid rgba(26,60,92,0.6);pointer-events:none;">
+    <span style="color:#3d5268;font-size:0.68em;font-family:Inter,sans-serif;text-transform:uppercase;letter-spacing:0.08em;font-weight:600;">Puntos</span>
     <span style="display:flex;align-items:center;gap:7px;">
-      <span style="width:11px;height:11px;border-radius:50%;background:#26c6da;display:inline-block;"></span>
-      <span style="color:#8b949e;font-size:0.8em;">Recibe m&#225;s migrantes de los que env&#237;a</span>
+      <span style="width:11px;height:11px;border-radius:50%;background:#26c6da;display:inline-block;box-shadow:0 0 5px #26c6da99;flex-shrink:0;"></span>
+      <span style="color:#8ba4be;font-size:0.79em;font-family:Inter,sans-serif;">Receptor neto de migraci&#243;n</span>
     </span>
     <span style="display:flex;align-items:center;gap:7px;">
-      <span style="width:11px;height:11px;border-radius:50%;background:#ff5252;display:inline-block;"></span>
-      <span style="color:#8b949e;font-size:0.8em;">Pierde m&#225;s poblaci&#243;n de la que recibe</span>
+      <span style="width:11px;height:11px;border-radius:50%;background:#ff5252;display:inline-block;box-shadow:0 0 5px #ff525299;flex-shrink:0;"></span>
+      <span style="color:#8ba4be;font-size:0.79em;font-family:Inter,sans-serif;">Emisor neto de migraci&#243;n</span>
     </span>
-    <span style="margin-left:auto;color:#3d444d;font-size:0.75em;">
-      Fuente: INEGI &middot; Tabulados Complementarios Censo 2020
+    <span style="width:1px;height:16px;background:rgba(26,60,92,0.8);display:inline-block;margin:0 2px;flex-shrink:0;"></span>
+    <span style="color:#3d5268;font-size:0.68em;font-family:Inter,sans-serif;text-transform:uppercase;letter-spacing:0.08em;font-weight:600;">Arcos</span>
+    <span style="display:flex;align-items:center;gap:7px;">
+      <span style="width:22px;height:2px;background:linear-gradient(90deg,rgba(30,100,255,0.5),rgba(80,160,255,0.95));display:inline-block;border-radius:1px;flex-shrink:0;"></span>
+      <span style="color:#8ba4be;font-size:0.79em;font-family:Inter,sans-serif;">Menor volumen</span>
     </span>
+    <span style="display:flex;align-items:center;gap:7px;">
+      <span style="width:22px;height:2px;background:linear-gradient(90deg,rgba(255,60,0,0.6),rgba(255,100,30,0.98));display:inline-block;border-radius:1px;flex-shrink:0;"></span>
+      <span style="color:#8ba4be;font-size:0.79em;font-family:Inter,sans-serif;">Mayor volumen</span>
+    </span>
+    <span style="margin-left:auto;color:#273848;font-size:0.68em;font-family:Inter,sans-serif;">INEGI &#183; Censo 2020</span>
   </div>
 </div>
 
@@ -1425,26 +1434,21 @@ var _gN={_nodes_js};
 var _gG={_geo_js};
 </script>
 
-<!-- Paso 2: librería Globe.gl (carga síncrona; el paso 3 espera a que esto termine) -->
-<script src="https://cdn.jsdelivr.net/npm/globe.gl/dist/globe.gl.min.js"></script>
-
-<!-- Paso 3: inicialización (Globe ya está disponible) -->
+<!-- Paso 2: inicialización (Globe.gl ya cargó desde el header del documento) -->
 <script>
 (function(){{
+  var _msg=document.getElementById('globe-loading-msg');
+  function _initGlobeAshira(){{
   var el=document.getElementById('globe-flujo-ashira');
-  var msg=document.getElementById('globe-loading-msg');
   if(!el)return;
-  if(!window.Globe){{
-    if(msg)msg.textContent='Error: Globe.gl no se pudo cargar (verifica conexión a internet).';
-    return;
-  }}
-  if(msg){{msg.style.display='none';el.style.display='block';}}
+  if(_msg){{_msg.style.display='none';}}
+  el.style.display='block';el.style.alignItems='';el.style.justifyContent='';
   var ARC_COLORS=[
-    ['rgba(30,100,255,0.22)','rgba(80,160,255,0.62)'],
-    ['rgba(0,170,230,0.28)','rgba(0,210,255,0.68)'],
-    ['rgba(0,220,230,0.34)','rgba(0,255,240,0.78)'],
-    ['rgba(255,155,0,0.38)','rgba(255,200,50,0.82)'],
-    ['rgba(255,65,0,0.44)','rgba(255,110,40,0.94)']
+    ['rgba(30,100,255,0.12)','rgba(80,160,255,0.50)'],
+    ['rgba(0,180,230,0.15)','rgba(0,220,255,0.58)'],
+    ['rgba(0,230,200,0.18)','rgba(0,255,220,0.66)'],
+    ['rgba(255,165,0,0.20)','rgba(255,210,40,0.72)'],
+    ['rgba(255,60,0,0.24)','rgba(255,100,30,0.82)']
   ];
   var maxTot=Math.max.apply(null,_gN.map(function(n){{return n.tot;}}));
   try{{
@@ -1453,24 +1457,24 @@ var _gG={_geo_js};
       .backgroundColor('#040c18')
       .showAtmosphere(true)
       .atmosphereColor('#0a2040')
-      .atmosphereAltitude(0.16)
+      .atmosphereAltitude(0.18)
       .polygonsData(_gG.features)
-      .polygonCapColor(function(){{return '#0d1a26';}})
-      .polygonSideColor(function(){{return '#0a141e';}})
-      .polygonStrokeColor(function(){{return '#1e4060';}})
-      .polygonAltitude(0.006)
+      .polygonCapColor(function(){{return '#0c1825';}})
+      .polygonSideColor(function(){{return '#081218';}})
+      .polygonStrokeColor(function(){{return '#1a3a5c';}})
+      .polygonAltitude(0.008)
       .arcsData(_gA)
       .arcStartLat(function(d){{return d.srcLat;}})
       .arcStartLng(function(d){{return d.srcLng;}})
       .arcEndLat(function(d){{return d.dstLat;}})
       .arcEndLng(function(d){{return d.dstLng;}})
       .arcColor(function(d){{return ARC_COLORS[d.q];}})
-      .arcAltitude(function(d){{return 0.05+d.q*0.05;}})
-      .arcStroke(function(d){{return 0.35+d.q*0.32;}})
-      .arcDashLength(0.38)
-      .arcDashGap(0.62)
+      .arcAltitude(function(d){{return 0.03+d.q*0.06;}})
+      .arcStroke(function(d){{return 0.08+d.q*0.06;}})
+      .arcDashLength(0.14)
+      .arcDashGap(0.86)
       .arcDashInitialGap(function(d){{return Math.random();}})
-      .arcDashAnimateTime(function(d){{return 1100+(4-d.q)*950;}})
+      .arcDashAnimateTime(function(d){{return 2200+(4-d.q)*1600;}})
       .arcLabel(function(d){{
         return '<div style="background:rgba(4,12,24,0.96);padding:9px 13px;border-radius:8px;font-family:Inter,sans-serif;border:1px solid rgba(255,255,255,0.12);max-width:220px">'
           +'<b style="font-size:13px;color:#e6edf3">'+d.src+' → '+d.dst+'</b><br>'
@@ -1481,8 +1485,8 @@ var _gG={_geo_js};
       .pointLat(function(d){{return d.lat;}})
       .pointLng(function(d){{return d.lng;}})
       .pointColor(function(d){{return d.net>0?'#26c6da':'#ff5252';}})
-      .pointAltitude(0.018)
-      .pointRadius(function(d){{return 0.18+0.52*Math.pow(d.tot/maxTot,0.4);}})
+      .pointAltitude(0.03)
+      .pointRadius(function(d){{return 0.10+0.28*Math.pow(d.tot/maxTot,0.38);}})
       .pointLabel(function(d){{
         var sign=d.net>0?'+':'';
         var col=d.net>0?'#26c6da':'#ff5252';
@@ -1493,14 +1497,40 @@ var _gG={_geo_js};
           +'</div>';
       }})
       (el);
-    g.pointOfView({{lat:23.5,lng:-102,altitude:1.22}},0);
+    g.pointOfView({{lat:16,lng:-100,altitude:0.82}},0);
     g.controls().enableZoom=true;
     g.controls().autoRotate=false;
     g.controls().enablePan=false;
-    g.controls().minPolarAngle=Math.PI*0.15;
-    g.controls().maxPolarAngle=Math.PI*0.85;
+    g.controls().minPolarAngle=Math.PI*0.18;
+    g.controls().maxPolarAngle=Math.PI*0.82;
+    var _oT=Date.now(),_oA=true,_oPer=26000;
+    var _cLng=-100,_lRng=1,_rRng=20,_lF=_lRng/(_lRng+_rRng);
+    function _osc(){{
+      if(_oA){{
+        var _tN=((Date.now()-_oT)%_oPer)/_oPer,_ph,_lng;
+        if(_tN<_lF){{_ph=_tN/_lF*Math.PI;_lng=_cLng-_lRng*Math.sin(_ph);}}
+        else{{_ph=(_tN-_lF)/(1-_lF)*Math.PI;_lng=_cLng+_rRng*Math.sin(_ph);}}
+        g.pointOfView({{lat:16,lng:_lng,altitude:0.82}});
+      }}
+      requestAnimationFrame(_osc);
+    }}
+    g.controls().addEventListener('start',function(){{_oA=false;}});
+    g.controls().addEventListener('end',function(){{setTimeout(function(){{_oT=Date.now();_oA=true;}},2500);}});
+    _osc();
   }}catch(e){{
     el.innerHTML='<p style="color:#ff5252;padding:20px;font-family:Inter">Error al inicializar el globo: '+e.message+'</p>';
+  }}
+  }}
+  if(window.Globe){{
+    _initGlobeAshira();
+  }}else{{
+    var _s=document.createElement('script');
+    _s.src='globe.gl.min.js';
+    _s.onload=_initGlobeAshira;
+    _s.onerror=function(){{
+      if(_msg){{_msg.style.color='#ff5252';_msg.textContent='Error: No se pudo cargar globe.gl.min.js';}}
+    }};
+    document.head.appendChild(_s);
   }}
 }})();
 </script>
