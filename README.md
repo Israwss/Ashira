@@ -7,11 +7,7 @@
 [![ODS 1](https://img.shields.io/badge/ODS%201-Fin%20de%20la%20Pobreza-E5243B)](https://sdgs.un.org/goals/goal1)
 [![ODS 10](https://img.shields.io/badge/ODS%2010-Reducción%20de%20Desigualdades-DD1367)](https://sdgs.un.org/goals/goal10)
 
----
-
 ![Preview del dashboard ASHIRA](dashboard/untitled.GIF)
-
----
 
 **En México no se puede hablar de pobreza sin hablar de dónde naciste.**
 
@@ -22,19 +18,7 @@ Cuatro bases de datos oficiales. Ocho años de registros. Una sola pregunta:
 > La respuesta corta: **Muchísimo.**
 > La respuesta larga: **esta historia.**
 
-ASHIRA cruza ENIGH, CONEVAL, Censo 2020 e ICE IMCO para demostrar que la brecha territorial de pobreza en México lleva ocho años sin cerrarse — y que los promedios nacionales la hacen invisible.
-
----
-
-## El equipo
-
-| Integrante | Origen | Contribución |
-|---|---|---|
-| Melisa Asharet Arano Bejarano | Veracruz | Análisis de ingreso y desigualdad territorial (ENIGH 2016–2024) |
-| Roberto Jhoshua Alegre Ventura | Guerrero | Análisis de pobreza multidimensional por estado (PM CONEVAL 2024) |
-| Israel Martínez Jiménez | Estado de México | Análisis de estructura territorial, etnicidad y competitividad (Censo 2020 e ICE IMCO) |
-
----
+ASHIRA cruza ENIGH, CONEVAL, Censo 2020 e ICE IMCO para demostrar que la brecha territorial de pobreza en México lleva ocho años sin cerrarse y que los promedios nacionales la hacen invisible.
 
 ## La historia en seis actos
 
@@ -46,8 +30,6 @@ ASHIRA cruza ENIGH, CONEVAL, Censo 2020 e ICE IMCO para demostrar que la brecha 
 | 4 | **El parche** | Los estados del Sur viven cada vez más de transferencias gubernamentales y remesas, no de trabajo formal. |
 | 5 | **Los que se van** | Los estados más pobres son los que más población pierden. La emigración es la única válvula de escape disponible. |
 | 6 | **¿Está cambiando?** | El ingreso creció en todos los estados entre 2016 y 2024. Pero los estados ricos crecieron más en pesos absolutos. |
-
----
 
 ## Cómo reproducir el análisis
 
@@ -78,8 +60,6 @@ El resultado queda en **`docs/index.html`** — se abre directo en el navegador 
 
 > **Alternativa sin Quarto:** el notebook `dashboard/ASHIRA_narrativa.ipynb` contiene las mismas visualizaciones y se puede ejecutar con `uv run jupyter notebook`.
 
----
-
 ## Los datos
 
 Todas las fuentes son instituciones del Estado mexicano o institutos de investigación independientes con metodologías auditadas. **Los archivos de datos no están en el repositorio** por restricciones de tamaño de GitHub — descárgalos con las instrucciones siguientes.
@@ -102,8 +82,6 @@ La fuente oficial de ingresos de los hogares en México. Usamos el archivo `conc
 2. Descargar "Conjunto de datos" y localizar `concentradohogar.csv` dentro del ZIP
 3. Colocar en `datos/enigh/` con los nombres `enigh_2016.csv`, `enigh_2018.csv`, `enigh_2020.csv`, `enigh_2022.csv`, `enigh_2024.csv`
 
----
-
 ### Pobreza Multidimensional 2024 (CONEVAL)
 
 Medición oficial de pobreza por entidad federativa. Un archivo Excel con una hoja por estado y una hoja resumen nacional.
@@ -119,8 +97,6 @@ Medición oficial de pobreza por entidad federativa. Un archivo Excel con una ho
 1. Ir a la URL e ingresar a cada entidad federativa
 2. Descargar el archivo de pobreza por entidad federativa 2024
 3. Colocar en `datos/pobreza_multidimensional/pm_ef_2024.xlsx`
-
----
 
 ### Censo de Población y Vivienda 2020 (INEGI)
 
@@ -143,8 +119,6 @@ datos/censo2020/
 
 Solo se usan registros con Sexo = Total y Estimador = Valor.
 
----
-
 ### Migración origen-destino 2015–2020 (INEGI / Censo 2020)
 
 Tabulado complementario del Censo que registra la entidad de residencia en 2015 y en 2020 para la población de 5 años y más. Construye la matriz de flujos interestatales del Acto 5.
@@ -161,8 +135,6 @@ Tabulado complementario del Censo que registra la entidad de residencia en 2015 
 2. Descargar "Migración origen-destino 2020" (xlsx → convertir a CSV con delimitador `;`)
 3. Colocar en `datos/migracion_od/cpv2020_migracion_municipios_2015_2020.csv`
 
----
-
 ### Índice de Competitividad Estatal 2020 (IMCO)
 
 Vincula la pobreza con la calidad del mercado laboral. Usamos la hoja `Ind (18)` (datos 2018, el año más reciente en formato Excel — las ediciones 2022 y 2023 solo existen como PDF).
@@ -178,8 +150,6 @@ Vincula la pobreza con la calidad del mercado laboral. Usamos la hoja `Ind (18)`
 
 **Descarga:** descargar el archivo desde la URL y colocar en `datos/imco/ICE_2020_Base_datos.xlsx`
 
----
-
 ## Por qué estas fuentes son las correctas
 
 El ODS 1 tiene como meta 1.2 reducir la pobreza en todas sus dimensiones. La medición de pobreza multidimensional de CONEVAL es el indicador oficial de México para este ODS. La ENIGH es la fuente oficial de ingresos que México usa para reportar ante la ONU. El Censo 2020 conecta la pobreza con sus determinantes estructurales (etnicidad, educación, alimentación). El ICE IMCO la conecta con la calidad del mercado laboral, el mecanismo por el que la pobreza se perpetúa o se supera.
@@ -187,8 +157,6 @@ El ODS 1 tiene como meta 1.2 reducir la pobreza en todas sus dimensiones. La med
 Decidimos no usar datos del Banco Mundial ni de la ONU porque la pregunta es específicamente regional: Norte, Centro, Sur y CDMX dentro de México, y esas fuentes no tienen ese nivel de desagregación.
 
 La combinación de las cuatro fuentes permite triangular: si la pobreza sube (CONEVAL), el ingreso no crece (ENIGH), la informalidad es alta (IMCO) y la población indígena es mayoritaria (Censo), eso no es coincidencia. Es estructura. Ninguna fuente sola puede decir eso.
-
----
 
 ## Audiencia y potencial de impacto
 
@@ -199,8 +167,6 @@ La combinación de las cuatro fuentes permite triangular: si la pobreza sube (CO
 | **Investigadores y sociedad civil** | Código reproducible, fuentes auditadas y notebooks exploratorios disponibles para continuar el análisis o adaptarlo a preguntas derivadas. |
 
 En un contexto donde el gobierno federal reporta avances usando promedios nacionales, ASHIRA demuestra que ese promedio oculta una brecha territorial de 56 puntos porcentuales que lleva ocho años sin cerrarse. Eso es exactamente lo que el ODS 10 señala como el problema central.
-
----
 
 ## Estructura del repositorio
 
@@ -226,13 +192,10 @@ Ashira/
 │   ├── index.qmd                      ← Fuente del dashboard (Quarto + Python) ← PRINCIPAL
 │   ├── _quarto.yml                    ← Configuración de Quarto (output → docs/)
 │   ├── ashira_custom.css              ← Estilos del dashboard
-│   ├── ASHIRA_narrativa.ipynb         ← Notebook equivalente (Jupyter)
-│   └── ASHIRA_narrativa.qmd          ← Versión narrativa alternativa
+│   └── ASHIRA_narrativa.ipynb         ← Notebook equivalente (Jupyter)
 └── docs/
     └── index.html                     ← Dashboard generado (resultado final)
 ```
-
----
 
 ## Exploración de datos
 
@@ -246,15 +209,28 @@ La carpeta `exploracion_datos/` contiene los notebooks de análisis exploratorio
 
 Estos notebooks no son el producto final — son el trabajo de campo. El dashboard en `dashboard/index.qmd` sintetiza y narra los hallazgos.
 
----
-
 ## Declaratoria de uso de inteligencia artificial
 
 Ver: [`ai-log.md`](ai-log.md)
 
 El equipo utilizó herramientas de IA como acelerador técnico para corrección de bugs de sintaxis y generación de código boilerplate. Todas las decisiones analíticas — selección de fuentes, pregunta de investigación, estructura narrativa, interpretación de resultados y verificación de consistencia — son trabajo exclusivo del equipo. El registro completo de interacciones, prompts y decisiones está en [`ai-log.md`](ai-log.md).
 
+<br>
+
 ---
 
-*ASHIRA · HackODS UNAM 2026 · ODS 1 y ODS 10*
+<div align="center">
+
+**Equipo ASHIRA · HackODS UNAM 2026**
+
+| | Integrante | Origen | Contribución |
+|:---:|---|---|---|
+| | Melisa Asharet Arano Bejarano | Veracruz | Análisis de ingreso y desigualdad territorial (ENIGH 2016–2024) |
+| | Roberto Jhoshua Alegre Ventura | Guerrero | Análisis de pobreza multidimensional por estado (PM CONEVAL 2024) |
+| | Israel Martínez Jiménez | Estado de México | Análisis de estructura territorial, etnicidad y competitividad (Censo 2020 e ICE IMCO) |
+
+ODS 1 · ODS 10 · Licencia [CC BY-SA 4.0](LICENSE)
+
 *Fuentes: INEGI · CONEVAL · IMCO · Censo 2020 · Migración OD — todas oficiales y de acceso público*
+
+</div>
