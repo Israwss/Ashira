@@ -2,27 +2,23 @@
 title: "ASHIRA"
 lang: es
 format:
-  html:
+  dashboard:
+    scrollable: true
+    orientation: rows
     theme:
       light: flatly
       dark: darkly
-    toc: true
-    toc-title: "El recorrido"
-    toc-depth: 2
-    toc-location: left
-    toc-expand: true
+    css: ashira_custom.css
     embed-resources: false
-    page-layout: full
-    smooth-scroll: true
     code-fold: true
     code-tools: true
     code-summary: "Ver código que generó esta visualización"
     code-overflow: wrap
     lightbox: true
-    anchor-sections: true
-    link-external-newwindow: true
     fig-cap-location: bottom
-    css: ashira_custom.css
+    nav-buttons:
+      - icon: github
+        href: https://github.com/Israwss/Ashira
 execute:
   echo: false
   warning: false
@@ -30,6 +26,8 @@ execute:
 jupyter: python313
 ---
 
+
+## Inicio
 
 ::: {.ashira-hero #inicio}
 ::: {.ashira-hero-inner}
