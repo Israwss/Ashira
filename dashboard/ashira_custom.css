@@ -40,37 +40,6 @@
   --mode-icon: '☀️';
 }
 
-/* ── LIGHT MODE OVERRIDES ─────────────────────────────────── */
-:root.light-mode {
-  --bg-deep:    #f0f2f5;
-  --bg-base:    #f7f8fa;
-  --bg-card:    #ffffff;
-  --bg-elev:    #eef2f8;
-  --border:     #c8d5e8;
-  --border-soft:#dce6f0;
-  --text-1:     #111318;
-  --text-2:     #1e2a3a;
-  --text-3:     #3d5068;
-  --text-4:     #6b7f96;
-  --text-5:     #9bafc4;
-  --accent:     #1a6ec7;
-  --gold:       #b87208;
-  --teal:       #0a7a6e;
-  --green:      #1ea558;
-  --purple:     #5c4ed6;
-  /* ── Shadows ── */
-  --shadow-sm:  0 2px 8px rgba(0,0,0,0.08);
-  --shadow-md:  0 8px 32px rgba(0,0,0,0.10);
-  --shadow-lg:  0 20px 60px rgba(0,0,0,0.09);
-  /* ── Grid overlay ── */
-  --grid-line:  rgba(0,0,0,0.04);
-  /* ── Glows ── */
-  --accent-glow: rgba(26,110,199,0.28);
-  --accent-glow-soft: rgba(26,110,199,0.14);
-  /* ── Mode icon ── */
-  --mode-icon: '🌙';
-}
-
 /* ── GLOBE CARD & HEADER ─────────────────────────────────── */
 .ashira-globe-card   { background: #040c18; }
 .ashira-globe-header { background: #040c18; }
@@ -78,34 +47,8 @@
 .ashira-globe-subtitle { color: #8b949e; }
 .ashira-globe-intro  { color: var(--text-2); }
 
-:root.light-mode .ashira-globe-card   { background: #dde6f0; }
-:root.light-mode .ashira-globe-header { background: #dde6f0; }
-:root.light-mode .ashira-globe-title  { color: #1e3a5f; }
-:root.light-mode .ashira-globe-subtitle { color: #3d5278; }
 
-/* ── GLOBE LIGHT MODE ────────────────────────────────────── */
-:root.light-mode #globe-flujo-ashira {
-  background: #dde6f0 !important;
-}
-:root.light-mode #globe-loading-msg {
-  color: #5a7a9a !important;
-}
-:root.light-mode .ashira-globe-legend {
-  background: rgba(220,232,245,0.94) !important;
-  border-top-color: rgba(80,130,180,0.35) !important;
-}
-:root.light-mode .ashira-globe-legend-head {
-  color: #3a5278 !important;
-}
-:root.light-mode .ashira-globe-legend-text {
-  color: #254060 !important;
-}
-:root.light-mode .ashira-globe-legend-src {
-  color: #5a7898 !important;
-}
 
-/* ── THEME TOGGLE BUTTON ─────────────────────────────────── */
-/* (removido — se usa el toggle nativo de Quarto si se activa) */
 
 /* ── SMOOTH TRANSITION ON THEME SWITCH ───────────────────── */
 *, *::before, *::after {
@@ -129,11 +72,7 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* Light mode body */
-:root.light-mode body {
-  background-color: var(--bg-base) !important;
-  color: var(--text-2) !important;
-}
+
 
 /* Minimizar márgenes de Quarto */
 #quarto-content {
@@ -189,18 +128,7 @@ strong, b { font-weight: 600; }
   animation: heroFadeIn 0.8s ease-out;
 }
 
-:root.light-mode .ashira-hero {
-  background:
-    radial-gradient(ellipse at 20% 0%, rgba(26,110,199,0.08), transparent 55%),
-    radial-gradient(ellipse at 80% 100%, rgba(92,78,214,0.05), transparent 60%),
-    linear-gradient(155deg, #eef2f8 0%, #edf4fc 40%, #eef2f8 100%);
-  border-left: 6px solid var(--accent);
-  box-shadow: 0 4px 32px rgba(0,0,0,0.07);
-}
 
-:root.light-mode .ashira-hero::after {
-  display: none;
-}
 
 .ashira-hero-inner {
   max-width: 1080px;
@@ -270,9 +198,6 @@ strong, b { font-weight: 600; }
   font-family: var(--font-display) !important;
 }
 
-:root.light-mode .ashira-hero-title {
-  text-shadow: 0 1px 8px rgba(0,0,0,0.08);
-}
 
 .ashira-hero-title em {
   color: var(--accent) !important;
@@ -337,11 +262,7 @@ strong, b { font-weight: 600; }
   cursor: default;
 }
 
-:root.light-mode .hero-stat {
-  background: rgba(255,255,255,0.72);
-  border: 1px solid rgba(0,0,0,0.07);
-  box-shadow: var(--shadow-sm);
-}
+
 
 .hero-stat:hover {
   transform: translateY(-4px);
@@ -349,10 +270,7 @@ strong, b { font-weight: 600; }
   box-shadow: 0 10px 24px rgba(0,0,0,0.35);
 }
 
-:root.light-mode .hero-stat:hover {
-  border-color: rgba(26,110,199,0.35);
-  box-shadow: 0 10px 24px rgba(0,0,0,0.10);
-}
+
 
 .hero-stat-num {
   font-size: 2.2rem;
@@ -397,9 +315,7 @@ strong, b { font-weight: 600; }
   text-align: left;
 }
 
-:root.light-mode .ashira-hero-meta {
-  border-top: 1px solid rgba(0,0,0,0.08);
-}
+
 
 .ashira-team-label {
   color: var(--accent);
@@ -440,12 +356,7 @@ strong, b { font-weight: 600; }
   transition: opacity 0.22s ease, transform 0.22s ease;
 }
 
-:root.light-mode .ashira-scroll-hint {
-  background: rgba(247,248,250,0.92);
-  color: var(--accent);
-  box-shadow: 0 10px 28px rgba(0,0,0,0.12);
-  border-color: rgba(26,110,199,0.4);
-}
+
 
 .ashira-scroll-hint.is-visible {
   display: flex;
@@ -546,9 +457,7 @@ strong, b { font-weight: 600; }
   pointer-events: none;
 }
 
-:root.light-mode .hero-map-img {
-  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
-}
+
 
 .hero-map-caption {
   text-align: center;
@@ -592,12 +501,7 @@ nav#quarto-sidebar {
   padding: 28px 0 32px 0 !important;
 }
 
-:root.light-mode #quarto-sidebar,
-:root.light-mode .sidebar.sidebar-navigation,
-:root.light-mode nav#quarto-sidebar {
-  background: linear-gradient(180deg, #eef0f7 0%, #f0f2f7 60%, #edf0f6 100%) !important;
-  border-right: 1px solid var(--border-soft) !important;
-}
+
 
 #quarto-content > div:first-child,
 .quarto-sidebar-left,
@@ -696,12 +600,6 @@ nav[role="doc-toc"] ul li > a:hover,
   transform: translateX(2px);
 }
 
-:root.light-mode nav[role="doc-toc"] ul li > a:hover,
-:root.light-mode #TOC ul li > a:hover {
-  color: var(--text-1) !important;
-  background: rgba(26,110,199,0.06) !important;
-  border-left-color: rgba(26,110,199,0.4) !important;
-}
 
 nav[role="doc-toc"] ul li > a:hover::before,
 #TOC ul li > a:hover::before {
@@ -793,18 +691,12 @@ h3:hover .anchorjs-link { opacity: 0.7 !important; }
   transition: background 0.25s ease;
 }
 
-:root.light-mode .cell-output-display {
-  background: rgba(0,0,0,0.02);
-  border: 1px solid var(--border-soft);
-}
+
 
 .cell-output-display:hover {
   background: rgba(22,27,34,0.5);
 }
 
-:root.light-mode .cell-output-display:hover {
-  background: rgba(0,0,0,0.04);
-}
 
 .cell-output-display .plotly-graph-div,
 .cell-output-display .js-plotly-plot {
@@ -822,11 +714,7 @@ figure img {
   box-shadow: 0 8px 32px rgba(0,0,0,0.6);
 }
 
-:root.light-mode .cell-output-display img,
-:root.light-mode .quarto-figure img,
-:root.light-mode figure img {
-  box-shadow: 0 6px 24px rgba(0,0,0,0.12);
-}
+
 
 /* ── 6. CAPTIONS ────────────────────────────────────────── */
 figcaption,
@@ -844,19 +732,6 @@ p.caption {
   padding-top: 0.5rem !important;
 }
 
-:root.light-mode figcaption,
-:root.light-mode .figure-caption,
-:root.light-mode .quarto-float-caption,
-:root.light-mode p.caption {
-  color: var(--text-3) !important;
-  border-top: 1px solid rgba(0,0,0,0.07) !important;
-  opacity: 1 !important;
-  padding-top: 0.5rem !important;
-}
-
-:root.light-mode .fig-source {
-  color: var(--text-4) !important;
-}
 
 .quarto-float-caption {
   max-width: 92%;
@@ -887,12 +762,21 @@ p.caption {
   border: 1px solid rgba(233,69,96,0.22) !important;
   border-left-width: 5px !important;
 }
-
-:root.light-mode .callout-important {
-  background: linear-gradient(135deg, rgba(26,110,199,0.06), rgba(26,110,199,0.01)) !important;
-  border: 1px solid rgba(26,110,199,0.18) !important;
-  border-left-width: 5px !important;
+.callout-important .callout-header {
+  background-color: rgba(233, 69, 96, 0.25) !important;
+  border-bottom: 1px solid rgba(233, 69, 96, 0.35) !important;
 }
+
+.callout-warning .callout-header {
+  background-color: rgba(245, 166, 35, 0.25) !important;
+  border-bottom: 1px solid rgba(245, 166, 35, 0.35) !important;
+}
+
+.callout-tip .callout-header {
+  background-color: rgba(15, 155, 142, 0.25) !important;
+  border-bottom: 1px solid rgba(15, 155, 142, 0.35) !important;
+}
+
 
 .callout-important .callout-title-container,
 .callout-important .callout-title {
@@ -908,11 +792,6 @@ p.caption {
   border-left-width: 5px !important;
 }
 
-:root.light-mode .callout-warning {
-  background: linear-gradient(135deg, rgba(196,125,10,0.06), rgba(196,125,10,0.01)) !important;
-  border: 1px solid rgba(196,125,10,0.18) !important;
-  border-left-width: 5px !important;
-}
 
 .callout-warning .callout-title-container,
 .callout-warning .callout-title {
@@ -928,11 +807,7 @@ p.caption {
   border-left-width: 5px !important;
 }
 
-:root.light-mode .callout-tip {
-  background: linear-gradient(135deg, rgba(10,122,110,0.06), rgba(10,122,110,0.01)) !important;
-  border: 1px solid rgba(10,122,110,0.18) !important;
-  border-left-width: 5px !important;
-}
+
 
 .callout-tip .callout-title-container,
 .callout-tip .callout-title {
@@ -1048,6 +923,24 @@ hr::after {
   padding: 0.75rem 0.25rem 1.4rem 0.25rem;
 }
 
+/* ── FIX: Ajuste de Plotly en Tabs (Sin JS) ── */
+.panel-tabset .tab-content > .tab-pane {
+  display: block !important; /* Fuerza el renderizado para que Plotly calcule el ancho */
+  visibility: hidden;
+  height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 0.25s ease; /* Transición suave opcional */
+}
+
+.panel-tabset .tab-content > .tab-pane.active,
+.panel-tabset .tab-content > .tab-pane.show {
+  visibility: visible;
+  height: auto;
+  overflow: visible;
+  opacity: 1;
+}
+
 /* ── 11. SCROLLBAR ─────────────────────────────────────── */
 ::-webkit-scrollbar { width: 8px; height: 8px; }
 ::-webkit-scrollbar-track { background: var(--bg-base); }
@@ -1092,6 +985,8 @@ nav a,
 }
 
 /* ── 14b. CICLO QUE SE PERPETÚA ───────────────────────── */
+.ashira-ciclo p { margin: 0; padding: 0; }
+
 .ashira-ciclo {
   background: linear-gradient(160deg, #0d1117 0%, #11151f 100%);
   padding: 36px 40px 32px 40px;
@@ -1101,11 +996,7 @@ nav a,
   box-shadow: 0 10px 30px rgba(0,0,0,0.25);
 }
 
-:root.light-mode .ashira-ciclo {
-  background: linear-gradient(160deg, #f7f8fa 0%, #f0f2f7 100%);
-  box-shadow: 0 8px 28px rgba(0,0,0,0.07);
-  border: 1px solid var(--border);
-}
+
 .ashira-ciclo-title {
   color: var(--text-1);
   font-size: 1.4em;
@@ -1128,7 +1019,7 @@ nav a,
   margin: 0 auto;
 }
 .ciclo-card {
-  width: 155px;
+  width: 165px;
   background: rgba(22,27,34,0.7);
   border-top: 3px solid var(--c, #e94560);
   border-radius: 10px;
@@ -1143,21 +1034,14 @@ nav a,
   cursor: default;
 }
 
-:root.light-mode .ciclo-card {
-  background: rgba(255,255,255,0.9);
-  box-shadow: 0 3px 14px rgba(0,0,0,0.08);
-  border: 1px solid rgba(0,0,0,0.07);
-  border-top: 3px solid var(--c, #1a6ec7);
-}
+
 .ciclo-card:hover {
   transform: translateY(-3px);
   box-shadow: 0 8px 18px rgba(0,0,0,0.35);
   z-index: 300;
 }
 
-:root.light-mode .ciclo-card:hover {
-  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-}
+
 
 .ciclo-num {
   display: inline-flex;
@@ -1203,12 +1087,7 @@ nav a,
   box-shadow: 0 8px 28px rgba(0,0,0,0.6);
 }
 
-:root.light-mode .ciclo-desc {
-  background: rgba(255,255,255,0.98);
-  border-color: var(--c, #1a6ec7);
-  color: #3d5068;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-}
+
 
 .ciclo-card:hover .ciclo-desc {
   opacity: 1;
@@ -1242,13 +1121,13 @@ nav a,
   font-size: 1.28rem;
   font-weight: 800;
 }
-/* 6-step hexagonal layout — 155px cards, centers on ellipse (a=217, b=145) */
-.ciclo-circle .pos1 { top: 15px;  left: calc(50% - 78px); }
-.ciclo-circle .pos2 { top: 92px;  left: calc(50% + 139px); }
-.ciclo-circle .pos3 { top: 244px; left: calc(50% + 139px); }
-.ciclo-circle .pos4 { top: 320px; left: calc(50% - 78px); }
-.ciclo-circle .pos5 { top: 244px; left: calc(50% - 295px); }
-.ciclo-circle .pos6 { top: 92px;  left: calc(50% - 295px); }
+/* 6-step hexagonal layout — 165px cards, centers on ellipse (a=217, b=145) */
+.ciclo-circle .pos1 { top: 15px;  left: calc(50% - 83px); }
+.ciclo-circle .pos2 { top: 92px;  left: calc(50% + 134px); }
+.ciclo-circle .pos3 { top: 244px; left: calc(50% + 134px); }
+.ciclo-circle .pos4 { top: 320px; left: calc(50% - 83px); }
+.ciclo-circle .pos5 { top: 244px; left: calc(50% - 300px); }
+.ciclo-circle .pos6 { top: 92px;  left: calc(50% - 300px); }
 
 /* Flechas — posiciones calculadas sobre los gaps reales entre tarjetas */
 /* Card centers: pos1(cx=0,cy=58) pos2(+217,135) pos3(+217,287) pos4(0,363) pos5(-217,287) pos6(-217,135) */
@@ -1256,6 +1135,7 @@ nav a,
 .ciclo-circle .a23 { top: 211px; left: calc(50% + 217px); transform: translate(-50%, -50%) rotate(90deg); }
 .ciclo-circle .a34 { top: 325px; left: calc(50% + 108px); transform: translate(-50%, -50%) rotate(161deg); }
 .ciclo-circle .a45 { top: 325px; left: calc(50% - 109px); transform: translate(-50%, -50%) rotate(199deg); }
+.ciclo-circle .a51 { top: 172px; left: calc(50% - 108px); transform: translate(-50%, -50%) rotate(314deg); }
 .ciclo-circle .a56 { top: 211px; left: calc(50% - 217px); transform: translate(-50%, -50%) rotate(270deg); }
 .ciclo-circle .a61 { top: 97px;  left: calc(50% - 109px); transform: translate(-50%, -50%) rotate(341deg); }
 
@@ -1303,16 +1183,7 @@ nav a,
   z-index: 1;
 }
 
-:root.light-mode .ciclo-core {
-  background: radial-gradient(circle at center, rgba(26,110,199,0.14), rgba(238,242,248,0.6));
-  border: 1.5px solid rgba(26,110,199,0.4);
-  color: var(--accent);
-  box-shadow:
-    0 0 20px rgba(26,110,199,0.25),
-    0 0 45px rgba(26,110,199,0.12),
-    inset 0 0 18px rgba(26,110,199,0.12);
-  animation: none;
-}
+
 .ashira-ciclo-loop {
   display: none;
 }
@@ -1349,14 +1220,6 @@ nav a,
   overflow: hidden;
 }
 
-:root.light-mode .ashira-closing {
-  background:
-    radial-gradient(ellipse at 80% 0%, rgba(92,78,214,0.05), transparent 55%),
-    radial-gradient(ellipse at 10% 100%, rgba(26,110,199,0.06), transparent 60%),
-    linear-gradient(160deg, #eef2f8 0%, #edf4fc 50%, #eef2f8 100%);
-  box-shadow: 0 12px 40px rgba(0,0,0,0.08);
-  border: 1px solid var(--border);
-}
 
 .ashira-closing::before {
   content: '';
@@ -1397,9 +1260,7 @@ nav a,
   padding: 0 4px;
 }
 
-:root.light-mode .closing-title-accent {
-  background: linear-gradient(180deg, transparent 62%, rgba(26,110,199,0.14) 62%);
-}
+
 
 .closing-pillars {
   display: grid;
@@ -1417,11 +1278,7 @@ nav a,
   transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
-:root.light-mode .pillar {
-  background: rgba(255,255,255,0.8);
-  border: 1px solid rgba(0,0,0,0.07);
-  box-shadow: var(--shadow-sm);
-}
+
 
 .pillar:hover {
   transform: translateY(-4px);
@@ -1429,10 +1286,7 @@ nav a,
   box-shadow: 0 10px 24px rgba(0,0,0,0.35);
 }
 
-:root.light-mode .pillar:hover {
-  border-color: rgba(26,110,199,0.3);
-  box-shadow: 0 10px 24px rgba(0,0,0,0.10);
-}
+
 .pillar-num {
   color: rgba(233,69,96,0.4);
   font-size: 1.4rem;
@@ -1440,9 +1294,7 @@ nav a,
   letter-spacing: 0.05em;
   margin-bottom: 10px;
 }
-:root.light-mode .pillar-num {
-  color: rgba(26,110,199,0.35);
-}
+
 .pillar-head {
   color: var(--text-1);
   font-size: 1.05rem;
@@ -1465,10 +1317,7 @@ nav a,
   border-radius: 0 12px 12px 0;
 }
 
-:root.light-mode .closing-policy {
-  background: rgba(196,125,10,0.05);
-  border-left: 3px solid var(--gold);
-}
+
 
 .closing-policy-title {
   color: var(--gold) !important;
@@ -1491,9 +1340,7 @@ nav a,
   background: linear-gradient(180deg, transparent 70%, rgba(233,69,96,0.22) 70%);
   padding: 0 3px;
 }
-:root.light-mode .closing-quote {
-  background: linear-gradient(180deg, transparent 70%, rgba(26,110,199,0.16) 70%);
-}
+
 
 .closing-cta {
   display: flex;
@@ -1527,73 +1374,101 @@ nav a,
   color: var(--text-2) !important;
   box-shadow: none;
 }
-:root.light-mode .closing-cta-btn.secondary {
-  border: 1px solid rgba(0,0,0,0.15) !important;
-}
+
 .closing-cta-btn.secondary:hover {
   border-color: var(--accent) !important;
   color: var(--accent) !important;
 }
 
+/* ── FOOTER MEJORADO ────────────────────────────────────── */
 .ashira-footer {
-  background: #030508;
-  border-top: 1px solid rgba(255,255,255,0.07);
-  padding: 32px 40px;
-  margin-top: 0;
+  /* Fondo más claro, azul medianoche igual al de tus tarjetas */
+  background: #11151f; 
+  padding: 56px 40px;
+  margin-top: 40px;
+  position: relative;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+/* Línea superior con gradiente de acento */
+.ashira-footer::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(233,69,96,0.4), transparent);
 }
 
 .ashira-footer-inner {
-  max-width: 1600px;
+  max-width: 900px;
   margin: 0 auto;
   display: flex;
-  justify-content: space-between;
+  /* Centramos todo en una sola columna */
+  flex-direction: column; 
+  justify-content: center;
   align-items: center;
-  gap: 24px;
-  flex-wrap: wrap;
+  gap: 40px; /* Separación grande entre la marca y las fuentes */
 }
 
 .ashira-footer-brand {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  align-items: center;
+  text-align: center;
 }
 
+/* Forzamos a que sean bloques para que Quarto no los pegue */
 .ashira-footer-logo {
+  display: block;
   font-family: var(--font-display);
-  font-size: 1.1rem;
-  font-weight: 700;
+  font-size: 1.6rem;
+  font-weight: 800;
   color: var(--accent);
-  letter-spacing: 0.08em;
+  letter-spacing: 0.15em;
+  margin-bottom: 12px; /* Separación exacta con el texto de abajo */
 }
 
 .ashira-footer-tag {
-  font-size: 0.75rem;
-  color: var(--text-4);
-  letter-spacing: 0.04em;
+  display: block;
+  font-size: 0.85rem;
+  color: var(--text-3);
+  letter-spacing: 0.08em;
+  font-weight: 500;
 }
 
 .ashira-footer-sources {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  gap: 3px;
-  font-size: 0.72rem;
-  color: var(--text-5);
-  text-align: right;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
 }
 
 .ashira-footer-label {
-  font-weight: 700;
+  display: inline-block;
+  font-weight: 800;
   color: var(--text-4);
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  font-size: 0.65rem;
-  margin-bottom: 2px;
+  letter-spacing: 0.2em;
+  font-size: 0.75rem;
+  margin-bottom: 8px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding-bottom: 6px;
 }
 
-:root.light-mode .closing-footer {
-  border-top: 1px solid rgba(0,0,0,0.08);
+.ashira-footer-sources .source-line {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--text-5);
+  transition: color 0.2s ease;
+  line-height: 1.6;
 }
+
+.ashira-footer-sources .source-line:hover {
+  color: var(--text-3);
+}
+
+
 
 /* ── Excepciones que confirman la regla ──────────────── */
 .ashira-excepciones {
@@ -1604,9 +1479,7 @@ nav a,
   margin: 32px 0;
 }
 
-:root.light-mode .ashira-excepciones {
-  background: linear-gradient(160deg, rgba(10,122,110,0.06), rgba(240,242,247,0.95));
-}
+
 
 .ashira-excepciones h3 {
   color: var(--teal) !important;
@@ -1626,9 +1499,6 @@ nav a,
   margin: 32px 0;
 }
 
-:root.light-mode .ashira-paradoja {
-  background: linear-gradient(160deg, rgba(26,110,199,0.06), rgba(238,242,248,0.95));
-}
 
 .ashira-paradoja h3 {
   color: var(--accent) !important;
@@ -1660,9 +1530,7 @@ nav a,
   padding-top: 20px;
 }
 
-:root.light-mode .paradoja-quote {
-  border-top: 1px solid rgba(0,0,0,0.08);
-}
+
 
 /* ── Sección ¿Qué sigue? ──────────────────────────────── */
 .que-sigue-intro {
@@ -1673,9 +1541,7 @@ nav a,
   margin-bottom: 36px;
 }
 
-:root.light-mode .que-sigue-intro {
-  background: linear-gradient(160deg, rgba(30,150,220,0.06), rgba(240,242,247,0.95));
-}
+
 
 .que-sigue-intro h3 {
   color: #38bdf8 !important;
@@ -1685,9 +1551,7 @@ nav a,
   margin: 0 0 12px 0 !important;
 }
 
-:root.light-mode .que-sigue-intro h3 {
-  color: #1882b8 !important;
-}
+
 
 .que-sigue-grid {
   display: grid;
@@ -1704,21 +1568,14 @@ nav a,
   transition: transform 0.25s ease, border-color 0.25s ease;
 }
 
-:root.light-mode .que-sigue-card {
-  background: rgba(255,255,255,0.85);
-  border: 1px solid rgba(0,0,0,0.07);
-  box-shadow: var(--shadow-sm);
-}
+
 
 .que-sigue-card:hover {
   transform: translateY(-3px);
   border-color: rgba(56,189,248,0.3);
 }
 
-:root.light-mode .que-sigue-card:hover {
-  border-color: rgba(24,130,184,0.3);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.09);
-}
+
 
 .que-sigue-card-icon {
   font-size: 2.2rem;
@@ -1753,12 +1610,7 @@ nav a,
   margin: 24px 0;
 }
 
-:root.light-mode .que-sigue-aliados,
-:root.light-mode .que-sigue-compromiso {
-  background: rgba(255,255,255,0.8);
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow-sm);
-}
+
 
 .que-sigue-aliados h4,
 .que-sigue-compromiso h4 {
@@ -1848,9 +1700,7 @@ nav a,
   box-shadow: 0 8px 24px rgba(0,0,0,0.3);
 }
 
-:root.light-mode .cta-share-btn:hover {
-  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-}
+
 
 /* ── 15. RESPONSIVE ────────────────────────────────────── */
 @media (max-width: 1100px) {
@@ -1902,10 +1752,7 @@ nav a,
     background: transparent;
     text-align: center;
   }
-  :root.light-mode .ciclo-desc {
-    box-shadow: none;
-    border-color: rgba(0,0,0,0.07);
-  }
+ 
   .ashira-excepciones,
   .ashira-paradoja { padding: 24px 22px; }
   .ashira-closing { padding: 36px 22px 28px 22px; }
@@ -1918,19 +1765,10 @@ nav a,
   .que-sigue-intro { padding: 20px 18px; }
 }
 
-/* ── 16. THEME TOGGLE — RESPONSIVE ──────────────────────── */
-/* (removido — toggle externo eliminado) */
 
-/* ── 17. LIGHT MODE — SELECTION COLOR ───────────────────── */
-:root.light-mode ::selection {
-  background: rgba(26,110,199,0.22);
-  color: #111318;
-}
 
-/* ── 18. LIGHT MODE — SCROLLBAR ─────────────────────────── */
-:root.light-mode ::-webkit-scrollbar-track { background: var(--bg-base); }
-:root.light-mode ::-webkit-scrollbar-thumb { background: var(--border); }
-:root.light-mode ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+
 
 /* ── 19. THEME TOGGLE ────────────────────────────────────── */
 /* Toggle removido. Ver ashira_theme_toggle.html para referencia. */
@@ -1956,18 +1794,6 @@ nav a,
   background: linear-gradient(135deg, #1a1a2e, #16213e);
 }
 
-/* Light mode: fondo blanco limpio con tinte muy sutil */
-:root.light-mode .ashira-insight {
-  background: #ffffff;
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow-sm);
-}
-:root.light-mode .ashira-insight.accent-blue   { background: linear-gradient(135deg, rgba(56,189,248,0.04), #ffffff); }
-:root.light-mode .ashira-insight.accent-red    { background: linear-gradient(135deg, rgba(233,69,96,0.04), #ffffff); }
-:root.light-mode .ashira-insight.accent-gold   { background: linear-gradient(135deg, rgba(245,166,35,0.04), #ffffff); }
-:root.light-mode .ashira-insight.accent-purple { background: linear-gradient(135deg, rgba(123,104,238,0.04), #ffffff); }
-:root.light-mode .ashira-insight.accent-green  { background: linear-gradient(135deg, rgba(46,204,113,0.04), #ffffff); }
-:root.light-mode .ashira-insight.accent-teal   { background: linear-gradient(135deg, rgba(15,155,142,0.04), #ffffff); }
 
 /* Texto dentro de insight boxes — theme-aware */
 .ashira-insight p {
@@ -1989,113 +1815,3 @@ nav a,
   color: var(--text-1) !important;
 }
 
-/* ── 21. LIGHT MODE — RED REMNANTS FIX ──────────────────── */
-
-/* Hero badge */
-:root.light-mode .ashira-hero-badge {
-  color: var(--accent);
-  border: 1px solid rgba(26,110,199,0.30);
-  background: rgba(26,110,199,0.06);
-}
-
-/* Hero title italic highlight */
-:root.light-mode .ashira-hero-title em {
-  background: linear-gradient(180deg, transparent 62%, rgba(26,110,199,0.18) 62%);
-}
-:root.light-mode .ashira-hero-title em:hover {
-  background: linear-gradient(180deg, transparent 30%, rgba(26,110,199,0.28) 30%);
-}
-
-/* Hero source links hover */
-:root.light-mode .hero-source-link:hover {
-  color: #1255a0 !important;
-  border-bottom-color: #1255a0 !important;
-}
-
-/* Scroll hint arrow circle */
-:root.light-mode .scroll-hint-arrow {
-  background: rgba(26,110,199,0.18);
-  color: #1a6ec7;
-}
-
-/* Section h2 accent bar glow */
-:root.light-mode #quarto-document-content h2::before {
-  box-shadow: 0 0 10px rgba(26,110,199,0.35);
-}
-
-/* TOC active item — remove red gradient */
-:root.light-mode nav[role="doc-toc"] ul li > a.active,
-:root.light-mode #TOC ul li > a.active {
-  background: linear-gradient(90deg, rgba(26,110,199,0.10), transparent) !important;
-  border-left-color: var(--accent) !important;
-}
-
-/* Code fold summary hover */
-:root.light-mode details.code-fold > summary:hover {
-  border-color: var(--accent) !important;
-  background: rgba(26,110,199,0.04);
-}
-
-/* Panel tabset hover + active */
-:root.light-mode .panel-tabset .nav-tabs .nav-link:hover {
-  background: rgba(26,110,199,0.05) !important;
-  border-color: rgba(26,110,199,0.2) !important;
-}
-:root.light-mode .panel-tabset .nav-tabs .nav-link.active {
-  color: var(--accent) !important;
-}
-
-/* Callout-important border stays blue-brand in light */
-:root.light-mode .callout-important .callout-title-container,
-:root.light-mode .callout-important .callout-title {
-  color: var(--accent) !important;
-}
-
-/* CTA link share btn */
-:root.light-mode .cta-share-btn.link {
-  background: var(--accent);
-  box-shadow: 0 4px 16px rgba(26,110,199,0.25);
-}
-
-/* Closing CTA primary btn */
-:root.light-mode .closing-cta-btn:not(.secondary) {
-  box-shadow: 0 6px 18px rgba(26,110,199,0.22);
-}
-:root.light-mode .closing-cta-btn:not(.secondary):hover {
-  box-shadow: 0 10px 24px rgba(26,110,199,0.38);
-}
-
-/* Loop arrow border */
-:root.light-mode .loop-arrow {
-  border: 1px solid rgba(26,110,199,0.35);
-  background: rgba(26,110,199,0.07);
-}
-
-/* ── 22. PLOTLY CHARTS — LIGHT MODE OVERRIDE ─────────────── */
-/*
-   Plotly renders on a <div> with inline bgcolor. We can't override
-   inline styles from CSS alone, so we use a JS hook (see section 23).
-   These classes are applied by the theme-toggle script to the
-   .js-plotly-plot containers.
-*/
-:root.light-mode .js-plotly-plot .bg {
-  fill: #ffffff !important;
-}
-
-/* Plotly SVG text elements */
-:root.light-mode .js-plotly-plot .gtitle text,
-:root.light-mode .js-plotly-plot .xtitle,
-:root.light-mode .js-plotly-plot .ytitle,
-:root.light-mode .js-plotly-plot .xtick text,
-:root.light-mode .js-plotly-plot .ytick text,
-:root.light-mode .js-plotly-plot .legendtext,
-:root.light-mode .js-plotly-plot text {
-  fill: #1e2a3a !important;
-}
-
-/* Plotly grid lines */
-:root.light-mode .js-plotly-plot .gridlayer path,
-:root.light-mode .js-plotly-plot .xgrid,
-:root.light-mode .js-plotly-plot .ygrid {
-  stroke: #dce6f0 !important;
-}
