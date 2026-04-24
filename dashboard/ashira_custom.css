@@ -2418,3 +2418,78 @@ body.quarto-light .footer-ods-pill {
   color: var(--text-3) !important;
 }
 body.quarto-light .footer-bottom-text { color: var(--text-4) !important; }
+
+/* ═══════════════════════════════════════════════════════════
+   ASHIRA — Dashboard format overrides
+   Convierte el grid de cards en layout narrativo de una columna
+   ═══════════════════════════════════════════════════════════ */
+
+/* 1. Fuerza una sola columna en todos los grids del dashboard */
+.quarto-dashboard .bslib-grid,
+.quarto-dashboard .grid,
+.quarto-dashboard .bslib-gap-spacing {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0 !important;
+  grid-template-columns: 1fr !important;
+}
+
+/* 2. Las cards ocupan 100% del ancho */
+.quarto-dashboard .bslib-card,
+.quarto-dashboard .card {
+  width: 100% !important;
+  max-width: 100% !important;
+  flex: none !important;
+  min-height: 0 !important;
+  height: auto !important;
+}
+
+/* 3. Elimina el chrome visual de las cards (bordes, sombras, fondos) */
+.quarto-dashboard .bslib-card,
+.quarto-dashboard .card {
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+}
+
+/* 4. Quita padding extra del body de las cards */
+.quarto-dashboard .card-body {
+  padding: 0 !important;
+  overflow: visible !important;
+  height: auto !important;
+  max-height: none !important;
+}
+
+/* 5. Oculta headers vacíos de cards generados automáticamente */
+.quarto-dashboard .card-header:empty {
+  display: none !important;
+}
+.quarto-dashboard .card-header {
+  background: transparent !important;
+  border-bottom: none !important;
+  padding: 0 !important;
+}
+
+/* 6. El contenedor principal del dashboard ocupa todo el ancho */
+.quarto-dashboard #quarto-content,
+.quarto-dashboard .dashboard-page-contents,
+.quarto-dashboard .tab-content,
+.quarto-dashboard .tab-pane {
+  padding: 0 !important;
+  max-width: 100% !important;
+  overflow: visible !important;
+}
+
+/* 7. Restaura el scroll natural de la página */
+.quarto-dashboard .tab-pane.active {
+  overflow-y: visible !important;
+  height: auto !important;
+  max-height: none !important;
+}
+
+/* 8. Mantiene el fondo oscuro del dashboard */
+.quarto-dashboard .quarto-dashboard-body,
+.quarto-dashboard .dashboard-page {
+  background-color: var(--bg-base) !important;
+}
