@@ -26,7 +26,7 @@ execute:
   echo: false
   warning: false
   message: false
-jupyter: python313
+jupyter: python3
 ---
 
 ```{=html}
@@ -507,7 +507,7 @@ for col_n, (df_y, year) in enumerate([(e16_map, 2016), (e24_map, 2024)], start=1
             hovertemplate=(
                 f"<b style='font-size:14px;color:#e6edf3'>%{{location}}</b><br>"
                 f"<span style='color:#a0aec0'>Ingreso mediano {year}: </span>"
-                f"<b style='color:#e6edf3'>${{customdata[1]:,.0f}}/mes</b>"
+                f"<b style='color:#e6edf3'>$%{{customdata[1]:,.0f}}/mes</b>"
                 "<extra></extra>"
             ),
         ),
