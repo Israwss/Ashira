@@ -11,19 +11,12 @@ format:
     toc-depth: 2
     toc-location: left
     toc-expand: true
-    embed-resources: false
+    embed-resources: true
     page-layout: full
     smooth-scroll: true
     code-fold: true
-    code-tools: true
-    code-summary: "Ver código que generó esta visualización"
-    code-overflow: wrap
-    lightbox: true
-    anchor-sections: true
-    link-external-newwindow: true
-    fig-cap-location: bottom
+    code-tools: false
     css: ashira_custom.css
-    include-before-body: _dark-init.html
 execute:
   echo: false
   warning: false
