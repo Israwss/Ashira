@@ -878,11 +878,14 @@ p.caption {
 :root.light-mode .figure-caption,
 :root.light-mode .quarto-float-caption,
 :root.light-mode p.caption {
-  color: var(--text-4) !important;
+  color: var(--text-3) !important;
   border-top: 1px solid rgba(0,0,0,0.07) !important;
   opacity: 1 !important;
-  border-top: 1px solid rgba(255,255,255,0.08) !important;
   padding-top: 0.5rem !important;
+}
+
+:root.light-mode .fig-source {
+  color: var(--text-4) !important;
 }
 
 .quarto-float-caption {
