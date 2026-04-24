@@ -1432,7 +1432,9 @@ fig.show()
 
 ::: {.ashira-ciclo}
 ::: {.ashira-ciclo-sub}
-Cada paso lleva al siguiente y el último vuelve al primero. Por eso la pobreza no se rompe sola.
+El origen condiciona el destino. Y el destino regresa al origen.
+
+Seis eslabones que se repiten generación tras generación.
 :::
 ::: {.ashira-ciclo-grid .ciclo-circle}
 ::: {.ciclo-card .pos1 style="--c:#e94560;"}

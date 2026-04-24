@@ -1017,8 +1017,8 @@ nav a,
 }
 .ashira-ciclo-grid {
   position: relative;
-  height: 460px;
-  max-width: 900px;
+  height: 475px;
+  max-width: 980px;
   margin: 0 auto;
 }
 .ciclo-card {
@@ -1124,24 +1124,24 @@ nav a,
   color: #556072;
   font-size: 1.28rem;
   font-weight: 800;
-  z-index: 1;
+  z-index: 5;
 }
-/* 6-step hexagonal layout — 180px cards, centers on ellipse (a=217, b=145) */
-.ciclo-circle .pos1 { top: 15px;  left: calc(50% - 90px); }
-.ciclo-circle .pos2 { top: 92px;  left: calc(50% + 127px); }
-.ciclo-circle .pos3 { top: 244px; left: calc(50% + 127px); }
-.ciclo-circle .pos4 { top: 320px; left: calc(50% - 90px); }
-.ciclo-circle .pos5 { top: 244px; left: calc(50% - 307px); }
-.ciclo-circle .pos6 { top: 92px;  left: calc(50% - 307px); }
+/* 6-step hexagonal layout — 180px cards, centers on ellipse (a=240, b=173) */
+.ciclo-circle .pos1 { top:  12px; left: calc(50% - 90px); }
+.ciclo-circle .pos2 { top:  88px; left: calc(50% + 150px); }
+.ciclo-circle .pos3 { top: 250px; left: calc(50% + 150px); }
+.ciclo-circle .pos4 { top: 338px; left: calc(50% - 90px); }
+.ciclo-circle .pos5 { top: 250px; left: calc(50% - 330px); }
+.ciclo-circle .pos6 { top:  88px; left: calc(50% - 330px); }
 
-/* Flechas — posiciones calculadas sobre los gaps reales entre tarjetas */
-/* Card centers: pos1(cx=0,cy=58) pos2(+217,135) pos3(+217,287) pos4(0,363) pos5(-217,287) pos6(-217,135) */
-.ciclo-circle .a12 { top: 97px;  left: calc(50% + 108px); transform: translate(-50%, -50%) rotate(20deg); }
-.ciclo-circle .a23 { top: 211px; left: calc(50% + 217px); transform: translate(-50%, -50%) rotate(90deg); }
-.ciclo-circle .a34 { top: 325px; left: calc(50% + 108px); transform: translate(-50%, -50%) rotate(161deg); }
-.ciclo-circle .a45 { top: 325px; left: calc(50% - 109px); transform: translate(-50%, -50%) rotate(199deg); }
-.ciclo-circle .a56 { top: 211px; left: calc(50% - 217px); transform: translate(-50%, -50%) rotate(270deg); }
-.ciclo-circle .a61 { top: 97px;  left: calc(50% - 109px); transform: translate(-50%, -50%) rotate(341deg); }
+/* Flechas — posiciones en gaps entre bordes de tarjetas */
+/* Card centers: pos1(0,65) pos2(+240,141) pos3(+240,303) pos4(0,391) pos5(-240,303) pos6(-240,141) */
+.ciclo-circle .a12 { top: 103px; left: calc(50% + 120px); transform: translate(-50%,-50%) rotate(18deg); }
+.ciclo-circle .a23 { top: 222px; left: calc(50% + 240px); transform: translate(-50%,-50%) rotate(90deg); }
+.ciclo-circle .a34 { top: 348px; left: calc(50% + 120px); transform: translate(-50%,-50%) rotate(158deg); }
+.ciclo-circle .a45 { top: 348px; left: calc(50% - 120px); transform: translate(-50%,-50%) rotate(202deg); }
+.ciclo-circle .a56 { top: 222px; left: calc(50% - 240px); transform: translate(-50%,-50%) rotate(270deg); }
+.ciclo-circle .a61 { top: 103px; left: calc(50% - 120px); transform: translate(-50%,-50%) rotate(342deg); }
 
 @keyframes ciclo-pulse {
   0%, 100% {
@@ -1162,8 +1162,8 @@ nav a,
 
 .ciclo-core {
   position: absolute;
-  /* Centro visual del hexágono: (58px_top + 363px_bottom) / 2 = 211px */
-  top: 211px;
+  /* Centro visual del hexágono: (65px_top + 391px_bottom) / 2 = 228px */
+  top: 228px;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 175px;
