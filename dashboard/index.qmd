@@ -3,13 +3,15 @@ title: "ASHIRA"
 lang: es
 format:
   html:
-    theme: flatly
+    theme:
+      light: flatly
+      dark: darkly
     toc: true
     toc-title: "El recorrido"
     toc-depth: 2
     toc-location: left
     toc-expand: true
-    embed-resources: true
+    embed-resources: false
     page-layout: full
     smooth-scroll: true
     code-fold: true
@@ -25,7 +27,7 @@ execute:
   echo: false
   warning: false
   message: false
-jupyter: python3
+jupyter: python313
 ---
 
 
@@ -1303,7 +1305,7 @@ La migración neta dice *cuántos se van*. El origen-destino dice **adónde van*
 :::
 
 ::: {style="text-align:center; margin: 10px 0;"}
-![Flujos de migración interestatal 2015–2020](untitled.GIF){style="max-width:100%; border-radius:8px;"}
+<img src="untitled.GIF" alt="Flujos de migración interestatal 2015–2020" style="max-width:100%; border-radius:8px; display:block; margin:0 auto;">
 
 ::: {.fig-caption style="font-size:0.85em; color:#5a6e84; margin-top:8px;"}
 Figura 12: Flujos de migración interestatal 2015–2020 · Top 40 pares por volumen. Puntos: balance neto (azul = receptor, rojo = emisor).
@@ -1322,7 +1324,9 @@ Los estados del Sur cambian porque pierden gente, no porque ganen oportunidades.
 
 **La verdadera meta:** No basta con "limpiar" las cifras de un estado; hay que generar riqueza donde la gente vive.
 
-[La estadística mide territorios. La dignidad se juega en personas.]{.paradoja-quote}
+::: {.paradoja-quote}
+La estadística mide territorios. La dignidad se juega en personas.
+:::
 :::
 
 ## El panorama completo

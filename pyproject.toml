@@ -1,0 +1,18 @@
+[project]
+name = "ashira"
+version = "0.1.0"
+description = "ASHIRA – Análisis de pobreza y migración en México"
+requires-python = ">=3.13"
+dependencies = [
+    "pandas>=2.0",
+    "numpy>=1.24",
+    "openpyxl>=3.1",
+    "geopandas>=0.14",
+    "plotly>=5.18",
+    "jupyter>=1.0",
+    "nbformat>=5.9",
+    "nbclient>=0.9",
+    "ipykernel>=6.0",
+]
+
+[tool.uv]
