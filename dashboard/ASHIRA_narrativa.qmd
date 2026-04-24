@@ -25,7 +25,7 @@ execute:
   echo: false
   warning: false
   message: false
-jupyter: python3
+jupyter: python313
 ---
 
 
@@ -1274,113 +1274,13 @@ fig.show()
 
 <p class="ashira-globe-intro" style="font-size:1.08em; line-height:1.78; margin:20px 0 14px 0;">La migración neta dice <em>cuántos se van</em>. El origen-destino dice <strong>adónde van</strong>. El patrón es consistente: el Sur alimenta al Norte y a los centros turísticos, los únicos mercados laborales que todavía absorben trabajadores sin credenciales universitarias.</p>
 
-```{python}
-#| label: fig-flujo-migratorio
-#| fig-cap: "Flujos de migración interestatal 2015–2020 · Top 40 pares por volumen. Puntos: balance neto (azul = receptor, rojo = emisor).<br><span class='fig-source'>Fuente: Migración origen-destino, Censo de Población y Vivienda 2020, INEGI.</span>"
-
-def _ctr(g):
-    c = g["coordinates"][0] if g["type"]=="Polygon" else max(g["coordinates"],key=lambda p:len(p[0]))[0]
-    return sum(x[0] for x in c)/len(c), sum(x[1] for x in c)/len(c)
-_ctr_d = {f["properties"]["name"]: _ctr(f["geometry"]) for f in mx_geo["features"]}
-
-_nmap = {n: n for n in _ctr_d}
-_nmap.update({"Coahuila de Zaragoza":"Coahuila","Michoacán de Ocampo":"Michoacán","Veracruz de Ignacio de la Llave":"Veracruz"})
-
-# ── Cargar y agregar datos OD ───────────────────────────────────────────────
-_p = REPO/"datos"/"migracion_od"/"cpv2020_migracion_municipios_2015_2020.csv"
-_df = pd.read_csv(_p, encoding="utf-8", sep=";", skiprows=5)
-_df.columns = ["eo","mo","ed","md","pob"]
-_df["pob"] = pd.to_numeric(_df["pob"].astype(str).str.replace(" ",""), errors="coerce")
-_df["co"] = _df["eo"].str[:3].str.strip(); _df["no"] = _df["eo"].str[4:].str.strip()
-_df["cd"] = _df["ed"].str[:2].str.strip().str.zfill(3); _df["nd"] = _df["ed"].str[3:].str.strip()
-_v = [f"{i:03d}" for i in range(1,33)]
-_od2 = (_df.groupby(["co","no","cd","nd"])["pob"].sum().reset_index()
-        .pipe(lambda d: d[d["co"].isin(_v)&d["cd"].isin(_v)&(d["co"]!=d["cd"])])
-        .dropna(subset=["pob"]).pipe(lambda d: d[d["pob"]>0]))
-_od2["go"] = _od2["no"].map(_nmap); _od2["gd"] = _od2["nd"].map(_nmap)
-_od2 = (_od2.dropna(subset=["go","gd"])
-        .pipe(lambda d: d[d["go"].isin(_ctr_d)&d["gd"].isin(_ctr_d)])
-        .sort_values("pob",ascending=False).reset_index(drop=True))
-_top = _od2.head(40).copy()
-_top["q"] = pd.qcut(_top["pob"], q=5, labels=False)
-
-# Balance neto por estado
-_net2 = {}
-for _s in _ctr_d:
-    _i = _od2[_od2["gd"]==_s]["pob"].sum()
-    _o = _od2[_od2["go"]==_s]["pob"].sum()
-    _net2[_s] = int(_i - _o)
-
-# ── Visualización Plotly Scattergeo ────────────────────────────────────────
-fig = go.Figure()
-
-arc_colors = [
-    "rgba(30,100,255,0.22)", "rgba(0,180,230,0.30)",
-    "rgba(0,210,185,0.38)", "rgba(255,165,0,0.46)", "rgba(255,60,0,0.56)"
-]
-arc_widths = [0.5, 0.8, 1.1, 1.5, 2.0]
-
-for _, row in _top.iterrows():
-    if row.go not in _ctr_d or row.gd not in _ctr_d:
-        continue
-    o_lng, o_lat = _ctr_d[row.go]
-    d_lng, d_lat = _ctr_d[row.gd]
-    q = int(row.q)
-    fig.add_trace(go.Scattergeo(
-        lon=[o_lng, d_lng], lat=[o_lat, d_lat],
-        mode="lines",
-        line=dict(width=arc_widths[q], color=arc_colors[q]),
-        hovertemplate=(
-            f"<b style='color:#e6edf3'>{row.go} → {row.gd}</b><br>"
-            f"<span style='color:#a0aec0'>Personas: </span>"
-            f"<b style='color:#e6edf3'>{int(row.pob):,}</b>"
-            "<extra></extra>"
-        ),
-        showlegend=False,
-    ))
-
-_max_abs = max(abs(v) for v in _net2.values()) if _net2 else 1
-for state, (lng, lat) in _ctr_d.items():
-    net = _net2.get(state, 0)
-    color = "#26c6da" if net > 0 else "#ff5252"
-    size = 5 + 12 * (abs(net) / _max_abs) ** 0.45
-    sign = "+" if net > 0 else ""
-    fig.add_trace(go.Scattergeo(
-        lon=[lng], lat=[lat], mode="markers",
-        marker=dict(size=size, color=color, opacity=0.88,
-                    line=dict(width=0.8, color="rgba(255,255,255,0.35)")),
-        hovertemplate=(
-            f"<b style='font-size:14px;color:#e6edf3'>{state}</b><br>"
-            f"<span style='color:#a0aec0'>Balance: </span>"
-            f"<b style='color:{color}'>{sign}{net:,}</b>"
-            "<extra></extra>"
-        ),
-        showlegend=False,
-    ))
-
-fig.update_geos(
-    visible=False, bgcolor="rgba(0,0,0,0)",
-    projection_type="mercator", showframe=False, showcoastlines=False,
-    lataxis_range=[13.5, 33.5], lonaxis_range=[-119.0, -85.5],
-)
-fig.update_layout(
-    height=580,
-    margin=dict(l=0, r=0, t=90, b=0),
-    title=dict(
-        text=(
-            "¿Adónde va la gente que se va? · Flujos interestatales 2015–2020<br>"
-            "<span style='color:#5a6e84;font-size:13px;'>"
-            "Top 40 pares · "
-            "<span style='color:#26c6da;'>●</span> Receptor neto &nbsp; "
-            "<span style='color:#ff5252;'>●</span> Emisor neto · "
-            "Arco más rojo = mayor volumen</span>"
-        ),
-        y=0.97, yanchor="top",
-    ),
-    geo=dict(bgcolor="rgba(0,0,0,0)", lakecolor="rgba(0,0,0,0)", landcolor="rgba(0,0,0,0)"),
-)
-fig.show()
-```
+<div style="text-align:center; margin: 10px 0;">
+  <img src="untitled.GIF" alt="Flujos de migración interestatal 2015–2020" style="max-width:100%; border-radius:8px;" />
+  <p class="fig-caption" style="font-size:0.85em; color:#5a6e84; margin-top:8px;">
+    Figura 12: Flujos de migración interestatal 2015–2020 · Top 40 pares por volumen. Puntos: balance neto (azul = receptor, rojo = emisor).<br>
+    <span class='fig-source'>Fuente: Migración origen-destino, Censo de Población y Vivienda 2020, INEGI.</span>
+  </p>
+</div>
 
 <div class="ashira-paradoja">
 <h3>¿Por qué bajan los números pero no la pobreza?</h3>
