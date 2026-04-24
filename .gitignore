@@ -31,3 +31,6 @@ imagenes/
 _freeze/
 *_files/
 dashboard/ASHIRA_narrativa.html
+
+/.quarto/
+**/*.quarto_ipynb
