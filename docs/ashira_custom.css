@@ -1017,8 +1017,8 @@ nav a,
 }
 .ashira-ciclo-grid {
   position: relative;
-  height: 460px;
-  max-width: 900px;
+  height: 540px;
+  max-width: 980px;
   margin: 0 auto;
 }
 .ciclo-card {
@@ -1124,24 +1124,24 @@ nav a,
   color: #556072;
   font-size: 1.28rem;
   font-weight: 800;
-  z-index: 1;
+  z-index: 5;
 }
-/* 6-step hexagonal layout — 180px cards, centers on ellipse (a=217, b=145) */
-.ciclo-circle .pos1 { top: 15px;  left: calc(50% - 90px); }
-.ciclo-circle .pos2 { top: 92px;  left: calc(50% + 127px); }
-.ciclo-circle .pos3 { top: 244px; left: calc(50% + 127px); }
-.ciclo-circle .pos4 { top: 320px; left: calc(50% - 90px); }
-.ciclo-circle .pos5 { top: 244px; left: calc(50% - 307px); }
-.ciclo-circle .pos6 { top: 92px;  left: calc(50% - 307px); }
+/* 6-step hexagonal layout — 180px cards, centers on ellipse (a=240, b=173) */
+.ciclo-circle .pos1 { top:  15px; left: calc(50% - 90px); }
+.ciclo-circle .pos2 { top:  95px; left: calc(50% + 150px); }
+.ciclo-circle .pos3 { top: 265px; left: calc(50% + 150px); }
+.ciclo-circle .pos4 { top: 360px; left: calc(50% - 90px); }
+.ciclo-circle .pos5 { top: 265px; left: calc(50% - 330px); }
+.ciclo-circle .pos6 { top:  95px; left: calc(50% - 330px); }
 
-/* Flechas — posiciones calculadas sobre los gaps reales entre tarjetas */
-/* Card centers: pos1(cx=0,cy=58) pos2(+217,135) pos3(+217,287) pos4(0,363) pos5(-217,287) pos6(-217,135) */
-.ciclo-circle .a12 { top: 97px;  left: calc(50% + 108px); transform: translate(-50%, -50%) rotate(20deg); }
-.ciclo-circle .a23 { top: 211px; left: calc(50% + 217px); transform: translate(-50%, -50%) rotate(90deg); }
-.ciclo-circle .a34 { top: 325px; left: calc(50% + 108px); transform: translate(-50%, -50%) rotate(161deg); }
-.ciclo-circle .a45 { top: 325px; left: calc(50% - 109px); transform: translate(-50%, -50%) rotate(199deg); }
-.ciclo-circle .a56 { top: 211px; left: calc(50% - 217px); transform: translate(-50%, -50%) rotate(270deg); }
-.ciclo-circle .a61 { top: 97px;  left: calc(50% - 109px); transform: translate(-50%, -50%) rotate(341deg); }
+/* Flechas — posiciones en gaps entre bordes de tarjetas */
+/* Card centers: pos1(0,68) pos2(+240,148) pos3(+240,318) pos4(0,413) pos5(-240,318) pos6(-240,148) */
+.ciclo-circle .a12 { top: 108px; left: calc(50% + 120px); transform: translate(-50%,-50%) rotate(18deg); }
+.ciclo-circle .a23 { top: 233px; left: calc(50% + 240px); transform: translate(-50%,-50%) rotate(90deg); }
+.ciclo-circle .a34 { top: 365px; left: calc(50% + 120px); transform: translate(-50%,-50%) rotate(158deg); }
+.ciclo-circle .a45 { top: 365px; left: calc(50% - 120px); transform: translate(-50%,-50%) rotate(202deg); }
+.ciclo-circle .a56 { top: 233px; left: calc(50% - 240px); transform: translate(-50%,-50%) rotate(270deg); }
+.ciclo-circle .a61 { top: 108px; left: calc(50% - 120px); transform: translate(-50%,-50%) rotate(342deg); }
 
 @keyframes ciclo-pulse {
   0%, 100% {
@@ -1162,8 +1162,8 @@ nav a,
 
 .ciclo-core {
   position: absolute;
-  /* Centro visual del hexágono: (58px_top + 363px_bottom) / 2 = 211px */
-  top: 211px;
+  /* Centro visual del hexágono: (68px_top + 413px_bottom) / 2 = 240px */
+  top: 240px;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 175px;
@@ -1230,7 +1230,7 @@ nav a,
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 3px;
-  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  background: linear-gradient(90deg, transparent, #38bdf8, transparent);
 }
 
 .closing-eyebrow {
@@ -1776,6 +1776,14 @@ h3.closing-policy-title {
   text-align: left !important;
 }
 
+.que-sigue-card a {
+  color: #38bdf8 !important;
+  text-decoration: underline !important;
+}
+.que-sigue-card a:hover {
+  color: #7dd3fc !important;
+}
+
 .que-sigue-aliados,
 .que-sigue-compromiso {
   background: rgba(22,27,34,0.5);
@@ -1789,7 +1797,7 @@ h3.closing-policy-title {
 
 .que-sigue-aliados h4,
 .que-sigue-compromiso h4 {
-  color: var(--gold) !important;
+  color: #38bdf8 !important;
   font-size: 0.78rem !important;
   font-weight: 800 !important;
   letter-spacing: 0.18em;
@@ -1809,10 +1817,10 @@ h3.closing-policy-title {
 .que-sigue-aliados ul li a {
   display: inline-block !important;
   padding: 6px 14px;
-  background: rgba(245,166,35,0.08);
-  border: 1px solid rgba(245,166,35,0.25) !important;
+  background: rgba(56,189,248,0.08);
+  border: 1px solid rgba(56,189,248,0.25) !important;
   border-radius: 100px;
-  color: var(--gold) !important;
+  color: #38bdf8 !important;
   font-size: 0.82rem;
   font-weight: 600;
   border-bottom: none !important;
@@ -1820,7 +1828,7 @@ h3.closing-policy-title {
 }
 
 .que-sigue-aliados ul li a:hover {
-  background: rgba(245,166,35,0.18);
+  background: rgba(56,189,248,0.18);
 }
 
 .cta-share {
@@ -2353,18 +2361,19 @@ body.quarto-light .que-sigue-card {
   box-shadow: var(--shadow-sm) !important;
 }
 body.quarto-light .que-sigue-card:hover {
-  border-color: rgba(190,26,53,0.35) !important;
+  border-color: rgba(56,189,248,0.35) !important;
   box-shadow: var(--shadow-md) !important;
 }
 body.quarto-light .que-sigue-card-title { color: var(--text-1) !important; }
 body.quarto-light .que-sigue-card p { color: var(--text-3) !important; }
 body.quarto-light .que-sigue-card-icon {
-  background: rgba(190,26,53,0.07) !important;
-  border-color: rgba(190,26,53,0.2) !important;
+  background: rgba(56,189,248,0.07) !important;
+  border-color: rgba(56,189,248,0.2) !important;
+  color: #38bdf8 !important;
 }
 body.quarto-light .que-sigue-card:hover .que-sigue-card-icon {
-  background: rgba(190,26,53,0.13) !important;
-  box-shadow: 0 0 16px rgba(190,26,53,0.2) !important;
+  background: rgba(56,189,248,0.13) !important;
+  box-shadow: 0 0 16px rgba(56,189,248,0.2) !important;
 }
 body.quarto-light .que-sigue-aliados,
 body.quarto-light .que-sigue-compromiso {
@@ -2376,12 +2385,12 @@ body.quarto-light .que-sigue-aliados h4,
 body.quarto-light .que-sigue-compromiso h4 { color: var(--text-1) !important; }
 body.quarto-light .que-sigue-compromiso p { color: var(--text-2) !important; }
 body.quarto-light .que-sigue-aliados ul li a {
-  color: var(--gold) !important;
-  background: rgba(146,98,10,0.07) !important;
-  border-color: rgba(146,98,10,0.25) !important;
+  color: #38bdf8 !important;
+  background: rgba(56,189,248,0.07) !important;
+  border-color: rgba(56,189,248,0.25) !important;
 }
 body.quarto-light .que-sigue-aliados ul li a:hover {
-  background: rgba(146,98,10,0.15) !important;
+  background: rgba(56,189,248,0.15) !important;
 }
 
 /* ── Hallazgos clave / Closing ── */
